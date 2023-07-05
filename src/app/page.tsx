@@ -1,7 +1,8 @@
 import Link from "next/link";
-
+import Header from "@/Components/Header";
 export default function Home() {
   return (
+    
     <main className="w-full bg-no-repeat px-5 py-5 bg-cover bg-[url('/home.jpg')]	">
 
       <div className="flex justify-center items-center h-screen text-3xl text-white">

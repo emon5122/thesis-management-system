@@ -15,7 +15,7 @@ const Header = () => {
   const pathName = usePathname();
 
   return (
-    <header className="w-screen flex fixed justify-between items-center py-4 bg-neutral-400 rounded-b-xl	">
+    <header className="w-screen flex fixed justify-between items-center py-4 bg-neutral-400 	">
 
       <Link href="/" className="flex ml-10 gap-2 cursor-pointer">
         <Image src="/logo.png" alt="logo" width={40}

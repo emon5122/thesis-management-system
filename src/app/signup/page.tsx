@@ -10,7 +10,7 @@ const Signup = () => {
       <section className="lg:h-screen flex justify-center">
         <div className="container w-full h-full flex justify-center">
           <div className="g-6 pl-px	 flex w-full h-full flex-wrap items-center justify-center dark:text-neutral-200">
-            <div className="pl-0.5	rounded-lg flex justify-center shadow-lg bg-teal-600			">
+            <div className="pl-0.5	rounded-lg flex justify-center shadow-lg bg-cyan-700			">
               <div className="g-0 lg:flex lg:flex-wrap">
                 <div className="px-4 md:px-0 lg:w-6/12">
                   <div className="md:mx-6 md:p-12">
@@ -56,11 +56,18 @@ const Signup = () => {
                           className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary-600 peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                         >
                           Password
-                        </label>
+                        </label><br/>
+                        
+            <input className="m-2" type="radio" name="gender" value="male" id="male"/>
+            Faculty
+            <input className="m-2" type="radio" name="gender" value="female" id="female"/>
+            Student
                       </div>
 
                       <div className="mb-12 pb-1 pt-1 text-center">
-                        <button
+                        <button onClick={() => {
+                            router.push("/");
+                          }}
                           className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.2),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                           type="button"
                           data-te-ripple-init

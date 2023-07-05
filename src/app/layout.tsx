@@ -16,10 +16,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="h-screen bg-gradient-to-r from-slate-300 to-slate-500">
-        <Header/>
-        {children}
-        <Footer/>
+          <Header />
+          {children}
         </div>
+        <Footer />
       </body>
     </html>
   );
