@@ -1,6 +1,5 @@
-
-
-
+import Link from "next/link";
+import Image from "next/image";
 const Dashboard = () => {
   return (
     <div>
@@ -17,54 +16,68 @@ const Dashboard = () => {
                <span className="ml-3">Dashboard</span>
             </a>
          </li>
+         <hr></hr>
          <li>
             <a href="../teacher/list" className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group">
                
                <span className="flex-1 ml-3 whitespace-nowrap">Student list</span>
             </a>
          </li>
+         <hr></hr>
          <li>
             <a href="../teacher/attendance2" className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group">
                
                <span className="flex-1 ml-3 whitespace-nowrap">Attendance</span>
             </a>
          </li>
-         
+         <hr></hr>
          <li>
             <a href="#" className="flex items-center p-2 rounded-lg  text-white  hover:bg-cyan-600 group">
                
                <span className="flex-1 ml-3 whitespace-nowrap">Task</span>
             </a>
          </li>
+         <hr></hr>
          <li>
             <a href="#" className="flex items-center p-2  rounded-lg  text-white  hover:bg-cyan-600 group">
                
                <span className="flex-1 ml-3 whitespace-nowrap">Evaluation</span>
             </a>
          </li>
+         <hr></hr>
          <li>
             <a href="#" className="flex items-center p-2 rounded-lg  text-white  hover:bg-cyan-600 group">
                
-               <span className="flex-1 ml-3 whitespace-nowrap">Routine</span>
+               <span className="flex-1 ml-3 whitespace-nowrap">Notice</span>
             </a>
          </li>
+         <hr></hr>
          <li>
             <a href="/" className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group">
             
                <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
             </a>
          </li>
+         <hr></hr>
          
       </ul>
      
    </div>
 </aside>
 
-<div className="p-4 sm:ml-64">
-   <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+<div className="h-screen bg-gradient-to-r from-slate-300 to-slate-500 ">
+<header className="w-screen flex fixed justify-between items-center py-4 bg-neutral-400 	">
+
+<Link href="/" className="flex ml-10 gap-2 cursor-pointer">
+  
+  <div className="text-4xl px-60 text-white">Thesis Management System</div>
+</Link>
+</header>
+
+
       </div>
       </div>
-      </div>
+      
 
     
   )

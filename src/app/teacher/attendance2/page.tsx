@@ -2,13 +2,14 @@ import React from 'react'
 
 const Attendance2 = () => {
   return (
+    <div className="h-screen">
     <div className="p-20">
       <h1 className="text-center text-3xl text-white ">Attendance List</h1><br/>
 
 <table className='m-auto border-2 '>
   <thead >
     <tr className="text-white">
-      <th className='p-4 m-1 bg-cyan-700'>Student's Name</th>
+      <th className='p-4 m-1 bg-cyan-700'>Student Name</th>
       <th className='p-4 m-1 bg-cyan-700'>1</th>
       <th className='p-4 m-1 bg-cyan-700'>2</th>
       <th className='p-4 m-1 bg-cyan-700'>3</th>
@@ -77,6 +78,7 @@ const Attendance2 = () => {
     </tr>
   </tbody>
 </table>
+    </div>
     </div>
   )
 }
