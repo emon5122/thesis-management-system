@@ -67,7 +67,7 @@ const Dashboard = () => {
               <hr></hr>
               <li>
                 <a
-                  href="#"
+                  href="../teacher/evaluation"
                   className="flex items-center p-2  rounded-lg  text-white  hover:bg-cyan-600 group"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
@@ -76,19 +76,8 @@ const Dashboard = () => {
                 </a>
               </li>
               <hr></hr>
-              <li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2  rounded-lg  text-white  hover:bg-cyan-600 group"
-                  >
-                    <span className="flex-1 ml-3 whitespace-nowrap">
-                      Routine
-                    </span>
-                  </a>
-                </li>
-              </li>
-              <hr></hr>
+              
+             
               <li>
                 <a
                   href="/"

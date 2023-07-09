@@ -6,11 +6,27 @@ import { prisma } from "@/lib/prisma";
 export const authOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        })
-    ],
+        CredentialsProvider({
+            id: "domain-login",
+            name: "Domain Account",
+            async authorize(credentials, req) {
+              const user = {
+                /* add function to get user */
+              }
+              return user
+            },
+            credentials: {
+              domain: {
+                label: "Domain",
+                type: "text ",
+                placeholder: "CORPNET",
+                value: "CORPNET",
+              },
+              username: { label: "Username", type: "text ", placeholder: "jsmith" },
+              password: { label: "Password", type: "password" },
+            },
+          }),
+      ],
     callbacks: {
         async jwt({ token }) {
             const userDb = async () => {

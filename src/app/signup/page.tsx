@@ -2,9 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { signIn } from "next-auth/react"
+import { useState } from "react";
 
 const Signup = () => {
   const router = useRouter();
+  const [username, setUserName] = useState("")
+  const [password, setPassword] = useState("")
+  const [isStudent, setIsStudent] = useState(true)
   return (
     <div>
       <section className="lg:h-screen flex justify-center">
@@ -31,6 +36,8 @@ const Signup = () => {
                     <form>
                       <div className="relative mb-4" data-te-input-wrapper-init>
                         <input
+                        value={username}
+                        onChange={e => setUserName(e.target.value)}
                           type="text"
                           className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                           id="exampleFormControlInput1"
@@ -46,6 +53,8 @@ const Signup = () => {
 
                       <div className="relative mb-4" data-te-input-wrapper-init>
                         <input
+                             value={password}
+                             onChange={e => setPassword(e.target.value)}
                           type="password"
                           className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                           id="exampleFormControlInput11"
@@ -58,15 +67,17 @@ const Signup = () => {
                           Password
                         </label><br/>
                         
-            <input className="m-2" type="radio" name="gender" value="male" id="male"/>
+            <input onChange={() => setIsStudent(false)} className="m-2" type="radio" name="gender" value="male" id="male"/>
             Faculty
-            <input className="m-2" type="radio" name="gender" value="female" id="female"/>
+            <input onChange={() => setIsStudent(true)} className="m-2" type="radio" name="gender" value="female" id="female"/>
             Student
                       </div>
 
                       <div className="mb-12 pb-1 pt-1 text-center">
                         <button onClick={() => {
                             router.push("/");
+                            signIn({username: username, password: password, isStudent: isStudent})
+                            
                           }}
                           className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.2),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                           type="button"

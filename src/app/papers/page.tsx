@@ -1,7 +1,7 @@
 const Papers = () => {
   return (
-    <div>
-      I am a paper
+    <div className="h-screen">
+      
     </div>
   )
 }
