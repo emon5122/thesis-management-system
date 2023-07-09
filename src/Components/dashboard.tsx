@@ -5,6 +5,7 @@ import Modal from "./modal";
 import { Fragment } from "react";
 const Dashboard = () => {
    const [showModal,setShowModal]= useState(false);
+   
   return (
     <Fragment>
       <div>
@@ -101,7 +102,7 @@ const Dashboard = () => {
             <button className="mr-20 text-white font-bold hover:text-green-800 underline" onClick={()=>setShowModal(true)}>
               <span className="flex-1  whitespace-nowrap">Notice</span>
             </button>
-            <Modal isvisible={showModal} onClose={()=>setShowModal(false)}/>
+            <Modal showMe={showModal} setShowMe={setShowModal} />
           </header>
         </div>
       </div>
