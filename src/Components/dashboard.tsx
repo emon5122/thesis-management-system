@@ -1,15 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import Modal from "./modal";
 import { Fragment } from "react";
-const Dashboard = () => {
+import Modal from "./modal";
+const DashboardNav = () => {
    const [showModal,setShowModal]= useState(false);
    
   return (
-    <Fragment>
-      <div>
-        <aside
+    <Fragment >
+      <aside
           id="cta-button-sidebar"
           className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
@@ -17,8 +16,8 @@ const Dashboard = () => {
           <div className="h-full px-3 py-4 overflow-y-auto bg-cyan-700">
             <ul className="space-y-2 font-medium">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/dashboard"
                   className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group"
                 >
                   <svg
@@ -32,60 +31,60 @@ const Dashboard = () => {
                     <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                   </svg>
                   <span className="ml-3">Dashboard</span>
-                </a>
+                </Link>
               </li>
               <hr></hr>
               <li>
-                <a
-                  href="../teacher/list"
+                <Link
+                  href="/dashboard/list"
                   className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Student list
                   </span>
-                </a>
+                </Link>
               </li>
               <hr></hr>
               <li>
-                <a
-                  href="../teacher/attendance2"
+                <Link
+                  href="/dashboard/attendance"
                   className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Attendance
                   </span>
-                </a>
+                </Link>
               </li>
               <hr></hr>
               <li>
-                <a
+                <Link
                   href="#"
                   className="flex items-center p-2 rounded-lg  text-white  hover:bg-cyan-600 group"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">Task</span>
-                </a>
+                </Link>
               </li>
               <hr></hr>
               <li>
-                <a
-                  href="../teacher/evaluation"
+                <Link
+                  href="/dashboard/evaluation"
                   className="flex items-center p-2  rounded-lg  text-white  hover:bg-cyan-600 group"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">
                     Evaluation
                   </span>
-                </a>
+                </Link>
               </li>
               <hr></hr>
               
              
               <li>
-                <a
-                  href="/"
+                <Link
+                  href="/api/auth/signout"
                   className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group"
                 >
                   <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
-                </a>
+                </Link>
               </li>
               <hr></hr>
             </ul>
@@ -105,9 +104,8 @@ const Dashboard = () => {
             <Modal showMe={showModal} setShowMe={setShowModal} />
           </header>
         </div>
-      </div>
     </Fragment>
   );
 };
 
-export default Dashboard;
+export default DashboardNav;

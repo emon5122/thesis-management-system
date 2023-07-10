@@ -1,8 +1,8 @@
-"use client";
-import Header from "@/Components/Header";
+import Header from "@/components/Header";
 import "./globals.css";
-import Footer from "@/Components/footer";
-import { usePathname } from "next/navigation";
+import Footer from "@/components/footer";
+import AuthProvider from "@/context/authprovider";
+import QueryProvider from "@/context/queryProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,19 +13,21 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-})
+}){
 
- { const pathName = usePathname();
-  const hideHeader = pathName === '/teacher/dashboard2';
   return (
     <html lang="en">
       <body>
+        <AuthProvider>
+          <QueryProvider>
         <div className="h-full bg-gradient-to-r from-slate-300 to-slate-500">
-        {!hideHeader && <Header />}
+         <Header />
           {children}
         </div>
         <Footer />
+        </QueryProvider>
+        </AuthProvider>
       </body>
     </html>
-  );
-}
+  )
+  }

@@ -1,6 +1,12 @@
-import Link from "next/link";
-import Header from "@/Components/Header";
-export default function Home() {
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/authoption";
+import { redirect } from "next/navigation";
+
+export default async function Home() {
+  const session = await getServerSession(authOptions)
+  if (session){
+    redirect("/teacher/dashboard2")
+  }
   return (
     
     <main className="w-full bg-no-repeat px-5 py-5 bg-cover bg-[url('/home.jpg')]	">
