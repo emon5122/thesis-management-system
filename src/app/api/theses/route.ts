@@ -4,16 +4,16 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req: any) => {
   const token = await getToken({ req });
-  if (!token) {
-    return NextResponse.error();
-  }
+    if (!token || !token?.sub || token?.role !=="TEACHER") {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.thesis.findMany({
       where: {
-        email: token?.email as string,
+        supervisorId: token.sub
       },
     });
-    return NextResponse.json(user?.role);
+    return NextResponse.json(user);
   } catch (e) {
     console.log(e);
   } finally {

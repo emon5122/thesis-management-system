@@ -1,82 +1,75 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider          = "postgresql"
   url               = env("POSTGRES_PRISMA_URL")
   directUrl         = env("POSTGRES_URL_NON_POOLING")
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
-
-model User {
-  id            String       @id @default(uuid())
-  name          String?
-  email         String?      @unique
-  role          UserRole     @default(STUDENT)
-  password      String
-  thesis        Thesis?      @relation("thesisStudent")
-  Thesis        Thesis[]     @relation("thesisTeacher")
-  thesisId      String?
-  Attendance    Attendance[] @relation("attendanceStudent")
-  Evaluation    Evaluation[] @relation("evaulatorTeacher")
-  Notice        Notice[]     @relation("noticeTeacher")
-  NoticeStudent Notice[]     @relation("noticeStudent")
-}
-
 enum UserRole {
   TEACHER
   STUDENT
   ADMIN
 }
-
+model User {
+  id            String       @id @default(uuid())
+  name          String?
+  email         String      @unique
+  role          UserRole     @default(STUDENT)
+  password      String
+  thesisAsStudent           Thesis?      @relation("thesisAsStudent")
+  thesesAsTeacher           Thesis[] 
+  attendances    Attendance[] @relation("studentAttendances")
+  evaluations    Evaluation[] @relation("evaulatorTeacher")
+  noticesAsTeacher           Notice[]     @relation("noticeTeacher")
+  noticesAsStudent    Notice[]     @relation("noticeStudent")
+}
 model Thesis {
   id           String   @id @default(uuid())
   name         String
   studentId    String   @unique
-  evaluators   String[]
   supervisorId String
   createdAt    DateTime @default(now())
   evaluations  String[]
-  student      User     @relation("thesisStudent", fields: [studentId], references: [id], onDelete: Cascade)
-  teacher      User[]   @relation("thesisTeacher", fields: [evaluations], references: [id])
+  student      User     @relation("thesisAsStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher      User[]  
   Task         Task[]   @relation("thesisTask")
+  evaluation Evaluation[] @relation("evaulationThesis")
 }
-
 model Attendance {
   id         String   @id @default(uuid())
   studentId  String
   weekNumber Int
   createdAt  DateTime @default(now())
-  student    User     @relation("attendanceStudent", fields: [studentId], references: [id])
+  student    User     @relation("studentAttendances", fields: [studentId], references: [id])
 }
-
 model Task {
-  id          String   @id @default(uuid())
-  name        String
-  details     String?
-  attachment  String?
+  id                  String   @id @default(uuid())
+  name            String
+  details           String?
+  attachment   String?
   isCompleted Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  submittedAt DateTime
+  createdAt      DateTime @default(now())
+  submittedAt  DateTime
   thesisId    String
   thesis      Thesis   @relation("thesisTask", fields: [thesisId], references: [id])
 }
-
 model Evaluation {
   id          String   @id @default(uuid())
   marks       Json[]
   evaluatorID String
   createdAt   DateTime @default(now())
-  evaluator   User     @relation("evaulatorTeacher", fields: [evaluatorID], references: [id])
+  thesisId   String
+  thesis Thesis     @relation("evaulationThesis", fields: [thesisId], references: [id])
+  evaluator User @relation("evaulatorTeacher", fields: [evaluatorID], references: [id])
 }
-
 model Notice {
   id        String   @id @default(uuid())
   details   String
   teacherId String
   createdAt DateTime @default(now())
-  studentId String
-  student   User     @relation("noticeStudent", fields: [studentId], references: [id])
-  teacher   User     @relation("noticeTeacher", fields: [teacherId], references: [id])
+  studentId String?
+  student   User?     @relation("noticeStudent", fields: [studentId], references: [id],onDelete: SetNull)
+  teacher   User     @relation("noticeTeacher", fields: [teacherId], references: [id],onDelete: Cascade)
 }
