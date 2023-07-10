@@ -10,15 +10,73 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String?
-  email    String?  @unique
-  role     UserRole @default(STUDENT)
-  password String
+  id            String       @id @default(uuid())
+  name          String?
+  email         String?      @unique
+  role          UserRole     @default(STUDENT)
+  password      String
+  thesis        Thesis?      @relation("thesisStudent")
+  Thesis        Thesis[]     @relation("thesisTeacher")
+  thesisId      String?
+  Attendance    Attendance[] @relation("attendanceStudent")
+  Evaluation    Evaluation[] @relation("evaulatorTeacher")
+  Notice        Notice[]     @relation("noticeTeacher")
+  NoticeStudent Notice[]     @relation("noticeStudent")
 }
 
 enum UserRole {
   TEACHER
   STUDENT
   ADMIN
+}
+
+model Thesis {
+  id           String   @id @default(uuid())
+  name         String
+  studentId    String   @unique
+  evaluators   String[]
+  supervisorId String
+  createdAt    DateTime @default(now())
+  evaluations  String[]
+  student      User     @relation("thesisStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher      User[]   @relation("thesisTeacher", fields: [evaluations], references: [id])
+  Task         Task[]   @relation("thesisTask")
+}
+
+model Attendance {
+  id         String   @id @default(uuid())
+  studentId  String
+  weekNumber Int
+  createdAt  DateTime @default(now())
+  student    User     @relation("attendanceStudent", fields: [studentId], references: [id])
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  name        String
+  details     String?
+  attachment  String?
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  submittedAt DateTime
+  thesisId    String
+  thesis      Thesis   @relation("thesisTask", fields: [thesisId], references: [id])
+}
+
+model Evaluation {
+  id          String   @id @default(uuid())
+  marks       Json[]
+  evaluatorID String
+  createdAt   DateTime @default(now())
+  evaluator   User     @relation("evaulatorTeacher", fields: [evaluatorID], references: [id])
+}
+
+model Notice {
+  id        String   @id @default(uuid())
+  details   String
+  teacherId String
+  createdAt DateTime @default(now())
+  studentId String
+  student   User     @relation("noticeStudent", fields: [studentId], references: [id])
+  teacher   User     @relation("noticeTeacher", fields: [teacherId], references: [id])
 }
