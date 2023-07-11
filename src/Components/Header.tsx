@@ -9,7 +9,7 @@ let PATHS = [];
 const Navbar = () => {
     const session = useSession();
     const pathName = usePathname();
-    const hideHeader = pathName.startsWith("/dashboard");
+    const hideHeader = pathName.startsWith("/dashboard") || pathName==="/signup";
     if (session.status === "unauthenticated") {
         PATHS = [
             { path: "/", name: "Home" },
