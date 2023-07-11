@@ -10,7 +10,6 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.error();
   }
   const encryptedPassword = await hash(validatedBody.data.password, 10);
-
   try {
     await prisma.user.create({
       data: { ...validatedBody.data, password: encryptedPassword },
