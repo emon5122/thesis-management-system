@@ -6,3 +6,8 @@ export const thesisBody = z.object({
     supervisorId: z.string().uuid()
 })
 export const teachersBody= z.array(z.object({id:z.string().uuid()}))
+
+export const thesisEvaluators = z.object({
+    id: z.string().uuid(),
+    teachers: z.array(z.object({id:z.string().uuid()}))
+})
