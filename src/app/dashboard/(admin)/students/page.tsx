@@ -2,17 +2,18 @@
 import { myAxios } from "@/lib/myaxios";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+
 import { z } from "zod";
 
 const List = () => {
   const { data } = useQuery({
     queryFn: async () => {
-      const value = await myAxios.get("evaluatablelist");
+      const value = await myAxios.get("user/student");
       return z
         .array(z.object({ id: z.string().uuid(), name: z.string() }))
         .parse(value.data);
     },
-    queryKey: ["evaluatablelist"],
+    queryKey: ["students"],
     staleTime: 300000,
   });
   return (
@@ -29,7 +30,14 @@ const List = () => {
               <tbody key={student.id}>
                 <tr className="text-white border-t-2 mb-2">
                   <td className="text-lg text-center">
-                    <Link className="underline hover:text-green-800" href={`/dashboard/profile/${student.id}`}> {student.name}</Link></td>
+                    <Link
+                      className="underline hover:text-green-800"
+                      href={`/dashboard/profile/${student.id}`}
+                    >
+                      {" "}
+                      {student.name}
+                    </Link>
+                  </td>
                 </tr>
               </tbody>
             );

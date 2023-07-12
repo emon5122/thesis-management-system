@@ -8,14 +8,13 @@ const DashboardNav = async () => {
   const role = session?.user?.role;
   if (role === "TEACHER") {
     paths = [
-      { url: "/dashboard/attendance", name: "Attendance" },
+      { url: "/dashboard/list", name: "Supervisee List" },
       { url: "/dashboard/evaluation", name: "Evaluation" },
     ];
   } else if (role === "ADMIN") {
     paths = [
-    
+      { url: "/dashboard/students", name: "Student List" },
       { url: "/dashboard/assign", name: "Assign Thesis" },
-      
       { url: "/dashboard/assign-evaluator", name: "Assign Evaluator" },
     ];
   } else {
