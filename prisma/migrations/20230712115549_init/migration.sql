@@ -42,7 +42,7 @@ CREATE TABLE "Task" (
     "attachment" TEXT,
     "isCompleted" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "submittedAt" TIMESTAMP(3) NOT NULL,
+    "submittedAt" TIMESTAMP(3),
     "thesisId" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")

@@ -49,11 +49,20 @@ const Profile = ({ params: { id } }: ParamsType) => {
         queryKey: ["session"],
         staleTime: 60000,
       },
+      {
+        queryFn: async () => {
+          const task = await myAxios.get(`task/${id}`);
+          return task.data;
+        },
+        queryKey: ["task", id],
+        staleTime: 30000,
+      },
     ],
   });
   const { data: user } = results[0];
   const { data: attendance } = results[1];
   const { data: session } = results[2];
+  const { data: task } = results[3];
 
   // attendance table
   const columns: GridColDef[] = [
@@ -90,6 +99,15 @@ const Profile = ({ params: { id } }: ParamsType) => {
     },
   });
 
+  // task
+  const taskColumn: GridColDef[] = [
+    { field: "name", headerName: "Task Name", width: 130 },
+    { field: "details", headerName: "Details", width: 130 },
+    { field: "attachment", headerName: "Attachment", width: 130 },
+    { field: "createdAt", headerName: "Creation Time", width: 130 },
+    { field: "submittedAt", headerName: "Submission Time", width: 130 },
+    { field: "isCompleted", headerName: "Status", width: 130 },
+  ];
   const component = (
     <>
       <Box sx={{ width: "100%", typography: "body1" }}>
@@ -175,7 +193,52 @@ const Profile = ({ params: { id } }: ParamsType) => {
               )}
             </div>
           </TabPanel>
-          <TabPanel value="3">Task data</TabPanel>
+          <TabPanel value="3">
+            <div className="flex flex-row justify-between gap-10">
+              <div style={{ height: 400, width: "100%" }}>
+                {task && (
+                  <DataGrid
+                    rows={task}
+                    columns={taskColumn}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { page: 0, pageSize: 5 },
+                      },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                  />
+                )}
+              </div>
+              {session?.user?.role === "TEACHER" && (
+                <form
+                  className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                  onSubmit={form.handleSubmit((values: attendanceType) => {
+                    attendanceMutation.mutate(values);
+                    form.reset();
+                  })}
+                >
+                  <div className="mb-2">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="weekNumber"
+                    >
+                      Week Number
+                    </label>
+                    <input
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="weekNumber"
+                      type="number"
+                      placeholder="Week Number"
+                      {...form.register("weekNumber", { valueAsNumber: true })}
+                    />
+                  </div>
+                  <Button variant="outlined" type="submit">
+                    Submit
+                  </Button>
+                </form>
+              )}
+            </div>
+          </TabPanel>
         </TabContext>
       </Box>
     </>
