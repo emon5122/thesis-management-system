@@ -12,7 +12,7 @@ export const PATCH = async (req: NextRequest, { params }: ParamsType) => {
     const body = await req.json();
     const validatedData = teachersBody.parse(body);
     try {
-        validatedData.map(async ({ id }) => {
+        validatedData.map(async (id) => {
             await prisma.thesis.update({
                 where: { id: params.id },
                 data: {
