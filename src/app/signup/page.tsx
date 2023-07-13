@@ -63,12 +63,12 @@ const Signup = () => {
           height={"200"}
         />
 
-        <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold flex justify-center self-center">
+        <h4 className="mb-12 mt-1 pb-1 text-xl text-white font-semibold flex justify-center self-center">
           Please register an account
         </h4>
 
         <form
-          className="flex flex-col border-2 p-6 border-slate-400/60 rounded-md shadow-lg shadow-slate-500 gap-2 m-auto "
+          className="flex flex-col border-2 border-dashed border-cyan-50 p-6 border-slate-400/60 rounded-md shadow-lg shadow-slate-500 gap-2 m-auto "
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="grid grid-cols-4 ">
@@ -206,13 +206,13 @@ const Signup = () => {
         </form>
 
         <div className="flex items-center justify-between  py-6 m-auto">
-          <p className="mb-0 mr-2">Have an account?</p>
+          <p className="mb-0 mr-2 text-white">Have an account?</p>
           <button
             onClick={() => {
               router.push("/login");
             }}
             type="button"
-            className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+            className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs text-white font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
             data-te-ripple-init
             data-te-ripple-color="light"
           >
@@ -220,6 +220,7 @@ const Signup = () => {
           </button>
         </div>
       </div>
+      
     );
   } else {
     redirect("/dashboard");
