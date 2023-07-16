@@ -9,19 +9,20 @@ let PATHS = [];
 const Navbar = () => {
     const session = useSession();
     const pathName = usePathname();
-    const hideHeader = pathName.startsWith("/dashboard") || pathName==="/signup";
+    const hideHeader =
+        pathName.startsWith("/dashboard") || pathName === "/signup";
     if (session.status === "unauthenticated") {
         PATHS = [
             { path: "/", name: "Home" },
             { path: "/papers", name: "Published papers" },
-            { path: "/api/auth/signin", name: "Log in" },
+            { path: "/login", name: "Log in" },
             { path: "/signup", name: "Sign up" },
         ];
     } else {
         PATHS = [
             { path: "/", name: "Home" },
             { path: "/papers", name: "Published papers" },
-            { path: "/api/auth/signout", name: "Log out" },
+            { path: "/api/auth/signout", name: "Log out" }, //TODO:Change it to logout component
         ];
     }
     if (!hideHeader) {
