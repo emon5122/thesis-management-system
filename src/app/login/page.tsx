@@ -11,7 +11,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-export default function Login() {
+const Login=()=> {
+  
   const router = useRouter();
   const queryClient = useQueryClient();
   const form = useForm<LoginValue>({ resolver: zodResolver(loginValidator) });
@@ -25,6 +26,7 @@ export default function Login() {
   if (session) {
     router.push("/dashboard");
   }
+
   return (
     <div className="flex flex-col bg-slate-400 h-screen">
       <Image
@@ -34,14 +36,13 @@ export default function Login() {
         width={"200"}
         height={"200"}
       />
-
       <h4 className="mb-12 mt-1 pb-1 text-xl text-white font-semibold flex justify-center self-center">
         Please register an account
       </h4>
 
       <form className="flex flex-col border-2 border-dashed border-cyan-50 p-6 border-slate-400/60 rounded-md shadow-lg shadow-slate-500 gap-2 m-auto "
-        onSubmit={form.handleSubmit(async (value) => {
-          await signIn("credentials", value);
+        onSubmit={form.handleSubmit(async (credentials) => {
+          await signIn("credentials", credentials);
           queryClient.invalidateQueries(["session"]);
           form.reset();
         })}
@@ -125,3 +126,4 @@ export default function Login() {
     </div>
   );
 }
+export default Login

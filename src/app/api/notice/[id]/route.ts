@@ -3,7 +3,6 @@ import { taskdetails } from "@/schema/task";
 import { ParamsType } from "@/types/api";
 import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
 export const GET = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });
@@ -11,12 +10,16 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
   try {
-    const tasks = await prisma.task.findMany({
+    const notices = await prisma.notice.findMany({
       where: {
-        thesis: { studentId: params.id },
+       studentId:params.id,
       },
+      select:{
+        details:true,
+        createdAt:true,
+      }
     });
-    return NextResponse.json(tasks);
+    return NextResponse.json(notices);
   } catch (e) {
     console.log(e);
   } finally {
