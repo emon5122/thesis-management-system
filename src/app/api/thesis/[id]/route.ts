@@ -27,3 +27,4 @@ export const PATCH = async (req: NextRequest, { params }: ParamsType) => {
         await prisma.$disconnect();
     }
 };
+

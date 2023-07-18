@@ -13,6 +13,11 @@ export const GET = async (req: NextRequest) => {
        studentId:token?.sub,
       },
       select:{
+        teacher:{
+          select:{
+            name:true
+          }
+        },
         details:true,
         createdAt:true,
       }

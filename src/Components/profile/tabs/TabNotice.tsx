@@ -3,15 +3,16 @@ import { noticedetails, noticesSchema } from "@/schema/notice";
 import { noticeType } from "@/types/notice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const TabNotice = ({ id }: any) => {
+const TabNotice = ({ id }: {id:string}) => {
+    const queryClient = useQueryClient()
   const { data: notices } = useQuery({
     queryFn: async () => {
       const res = await myAxios.get(`notice/${id}`);
-      return noticesSchema.parse(res.data);
+      return noticesSchema.parse(res.data).reverse();
     },
     queryKey: ["notice", id],
     staleTime: 30000,
@@ -28,6 +29,7 @@ const TabNotice = ({ id }: any) => {
       return await myAxios.post(`notice/${id}`, data);
     },
     onSuccess: () => {
+        queryClient.invalidateQueries(["notice", id])
       toast("Success");
     },
     onError: () => {
@@ -36,21 +38,15 @@ const TabNotice = ({ id }: any) => {
   });
 
   return (
-    <div>
-      <div>
+    <div className="flex flex-row justify-around gap-10">
+      <div className="border-white border-2 w-1/2 text-slate-50 max-h-96 overflow-auto">
         {notices &&
           notices.map((notice, index) => {
             return (
-              <div key={index} className="grid grid-cols-4 border-2 border-white">
-                <div className="col-span-2 grid grid-3">
-                  <div className="col-span-1">Sender: </div>
-                  <div className="col-span-2">{notice.teacher.name}</div>
-                </div>
-                <div className="col-span-1 grid grid-3">
-                  <div className="col-span-1">Details:</div>
-                  <div className="col-span-2">{notice.details}</div>
-                </div>
-                <div className="col-span-1">{notice.createdAt}</div>
+              <div key={index} className="flex flex-col">
+                  <div className="col-span-2">{notice.teacher.name} wrote, {'"'}{notice.details}{'"'}</div>
+                <div className="text-sm text-slate-200">{notice.createdAt}</div>
+                <hr/>
               </div>
             );
           })}

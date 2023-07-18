@@ -42,7 +42,7 @@ const Login=()=> {
 
       <form className="flex flex-col border-2 border-dashed border-cyan-50 p-6 border-slate-400/60 rounded-md shadow-lg shadow-slate-500 gap-2 m-auto "
         onSubmit={form.handleSubmit(async (credentials) => {
-          await signIn("credentials", credentials);
+          await signIn("credentials", {...credentials,callbackUrl:"/dashboard", redirect:true});
           queryClient.invalidateQueries(["session"]);
           form.reset();
         })}

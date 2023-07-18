@@ -81,3 +81,4 @@ model Notice {
   student   User?    @relation("noticeStudent", fields: [studentId], references: [id], onDelete: SetNull)
   teacher   User     @relation("noticeTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
 }
+

@@ -54,7 +54,7 @@ const Navbar = () => {
                         );
                     })}
                     {session.data?.user && (
-                        <div>Hi, {session.data.user.name}</div>
+                        <Link href={"/dashboard"}>Hi, {session.data.user.name}</Link>
                     )}
                 </ul>
             </div>

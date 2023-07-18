@@ -4,6 +4,7 @@ import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
+
 export const GET = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });
   if (!token || !token?.sub || token?.role === "STUDENT") {
@@ -23,6 +24,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     await prisma.$disconnect();
   }
 };
+
 export const POST = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });
   if (!token || !token?.sub || token?.role !== "TEACHER") {
@@ -46,3 +48,4 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
     await prisma.$disconnect();
   }
 };
+

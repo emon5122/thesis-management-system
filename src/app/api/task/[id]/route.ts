@@ -3,7 +3,6 @@ import { taskdetails } from "@/schema/task";
 import { ParamsType } from "@/types/api";
 import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 
 export const GET = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });

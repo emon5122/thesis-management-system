@@ -37,7 +37,7 @@ const NoticeBoard = () => {
   const { data: notices } = results[0];
   if (session?.user?.role === "STUDENT") {
     return (
-      <div>
+      <div >
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="text">
@@ -46,7 +46,7 @@ const NoticeBoard = () => {
               </Badge>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 max-h-56 overflow-auto">
+          <DropdownMenuContent className="w-56 mt-3 max-h-56 overflow-auto bg-white">
             {notices &&
               notices.map((notice, index: number) => {
                 return (

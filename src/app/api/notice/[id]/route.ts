@@ -32,7 +32,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
 };
 export const POST = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });
-  if (!token || !token?.id || token?.role !== "TEACHER") {
+  if (!token || !token?.sub || token?.role !== "TEACHER") {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
   const body = await req.json();
@@ -43,7 +43,7 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
       data:{
         details: validatedBody.details,
         studentId: params.id,
-        teacherId:token.id,
+        teacherId:token.sub,
       }
     });
     return NextResponse.json(notice);

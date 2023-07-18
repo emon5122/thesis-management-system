@@ -1,12 +1,4 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/authoption";
-import { redirect } from "next/navigation";
-
 export default async function Home() {
-    const session = await getServerSession(authOptions);
-    if (session) {
-        redirect("/dashboard");
-    }
     return (
         <main className="w-full bg-no-repeat px-5 py-5 bg-cover bg-[url('/home.jpg')]	">
             <div className="flex justify-center items-center h-screen text-3xl text-white">
@@ -18,7 +10,6 @@ export default async function Home() {
                 <br></br>
                 <br></br>– Jerome Isaac Friedman
             </div>
-            {/* <Link href={"/something"}>Go to Something</Link> */}
         </main>
     );
 }

@@ -7,6 +7,7 @@ import TabInfo from "@/components/profile/tabs/TabInfo";
 import TabAttendance from "@/components/profile/tabs/TabAttendance";
 import TabTask from "@/components/profile/tabs/TabTask";
 import { useState } from "react";
+import TabNotice from "./tabs/TabNotice";
 
 
 const ProfileTopNavigation = ({session, task,attendance, id,user}:any) => {
@@ -22,6 +23,7 @@ const ProfileTopNavigation = ({session, task,attendance, id,user}:any) => {
             <Tab style={{ color: "white" }} label="Info" value="1" />
             <Tab style={{ color: "white" }} label="Attendance" value="2" />
             <Tab style={{ color: "white" }} label="Tasks" value="3" />
+            <Tab style={{color:"white"}} label="Notices" value="4"/>
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -32,6 +34,9 @@ const ProfileTopNavigation = ({session, task,attendance, id,user}:any) => {
         </TabPanel>
         <TabPanel value="3">
           <TabTask task={task} session={session} id={id} />
+        </TabPanel>
+        <TabPanel value="4">
+          <TabNotice  id={id} />
         </TabPanel>
       </TabContext>
     </Box>
