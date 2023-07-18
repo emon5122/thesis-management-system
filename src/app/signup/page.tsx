@@ -40,7 +40,9 @@ const Signup = () => {
     },
   });
   const onSubmit = (values: registrationType) => {
+    console.log(values)
     signUpMutation.mutate(values);
+
     form.reset();
   };
   const signUpMutation = useMutation({
@@ -79,7 +81,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="demo-simple-select-helper-label"
+                id="name"
               >
                 Full Name
               </InputLabel>
@@ -91,7 +93,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="outlined-basic"
+                id="name"
                 label="Full Name"
                 variant="outlined"
                 type="text"
@@ -108,7 +110,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="demo-simple-select-helper-label"
+                id="email"
               >
                 Email
               </InputLabel>
@@ -120,7 +122,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="outlined-basic"
+                id="email"
                 label="email"
                 variant="outlined"
                 type="email"
@@ -137,7 +139,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="demo-simple-select-helper-label"
+                id="password"
               >
                 Password
               </InputLabel>
@@ -149,7 +151,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="outlined-basic"
+                id="password"
                 label="password"
                 variant="outlined"
                 type="password"
@@ -167,7 +169,7 @@ const Signup = () => {
                   fontSize: "0.9rem",
                   lineHeight: "1.25rem",
                 }}
-                id="demo-simple-select-helper-label"
+                id="role"
               >
                 Role
               </InputLabel>
@@ -182,7 +184,7 @@ const Signup = () => {
                   lineHeight: "1.25rem",
                 }}
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                id="role"
                 value={userRole}
                 label="Role"
                 {...form.register("role", {
@@ -191,7 +193,7 @@ const Signup = () => {
                 onChange={(e: SelectChangeEvent) => {
                   setUserRole(e.target.value);
                 }}
-              >
+                >
                 <MenuItem value="STUDENT">STUDENT</MenuItem>
                 <MenuItem value="TEACHER">TEACHER</MenuItem>
                 <MenuItem value="ADMIN">ADMIN</MenuItem>

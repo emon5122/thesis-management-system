@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { taskdetails } from "@/schema/task";
+import { noticedetails } from "@/schema/notice";
 import { ParamsType } from "@/types/api";
 import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
@@ -13,8 +13,12 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     const notices = await prisma.notice.findMany({
       where: {
        studentId:params.id,
+       
       },
       select:{
+        teacher:{select:{
+          name:true,
+        }},
         details:true,
         createdAt:true,
       }
@@ -28,17 +32,21 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
 };
 export const POST = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });
-  if (!token || !token?.sub || token?.role !== "TEACHER") {
+  if (!token || !token?.id || token?.role !== "TEACHER") {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
   const body = await req.json();
-  const validatedBody = taskdetails.parse(body);
+  const validatedBody = noticedetails.parse(body);
 
   try {
-    const task = await prisma.task.create({
-      data: { ...validatedBody, thesis: { connect: { studentId: params.id } } },
+    const notice = await prisma.notice.create({
+      data:{
+        details: validatedBody.details,
+        studentId: params.id,
+        teacherId:token.id,
+      }
     });
-    return NextResponse.json(task);
+    return NextResponse.json(notice);
   } catch (e) {
     console.log(e);
   } finally {

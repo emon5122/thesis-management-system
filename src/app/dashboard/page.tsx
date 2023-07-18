@@ -30,6 +30,7 @@ const Page = () => {
         queryKey: ["task"],
         staleTime: 30000,
       },
+      
     ],
   });
 
