@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
+import { Button,  Select } from "@mui/material";
+import { MenuItem,InputLabel } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,7 +68,7 @@ const Assign = () => {
         },
     });
     return (
-        <div className="w-full max-w-xs ml-72 mt-5 ">
+        <div className="max-w-xs m-auto mt-5 ">
             <form
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 onSubmit={form.handleSubmit((values: assignFormType) => {
@@ -77,12 +77,7 @@ const Assign = () => {
                 })}
             >
                 <div className="mb-2">
-                    <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="name"
-                    >
-                        Thesis title
-                    </label>
+                <InputLabel id="demo-multiple-chip-label">Thesis Title</InputLabel>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="name"
@@ -93,6 +88,7 @@ const Assign = () => {
                         })}
                     />
                 </div>
+                <InputLabel id="demo-multiple-chip-label">Evaluators List</InputLabel>
                 <Select
                     className=" text-black mx-20"
                     labelId="demo-simple-select-label"
@@ -115,6 +111,7 @@ const Assign = () => {
                             );
                         })}
                 </Select>
+                <InputLabel id="demo-multiple-chip-label">Student List</InputLabel>
                 <Select
                     className=" mx-20 text-black"
                     labelId="demo-simple-select-label"
@@ -139,7 +136,7 @@ const Assign = () => {
                 </Select>
                 <br />
                 <div className="mx-20">
-                    <Button className="mt-2 " variant="outlined" type="submit">
+                    <Button className="mt-5 " variant="outlined" type="submit">
                         Submit
                     </Button>
                 </div>

@@ -4,12 +4,12 @@ import { signOut } from "next-auth/react";
 const LogOut = () => {
     return (
         <button
-            className="flex items-center p-2 rounded-lg text-white hover:bg-cyan-600 group"
+            className="flex items-center p-2 rounded-lg ml-3 text-white hover:bg-slate-400"
             onClick={(e) => {
                 e.preventDefault(), signOut();
             }}
         >
-            <span className="ml-3">Logout</span>
+            <span >Log out</span>
         </button>
     );
 };

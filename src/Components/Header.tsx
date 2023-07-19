@@ -27,7 +27,7 @@ const Navbar = () => {
     }
     if (!hideHeader) {
         return (
-            <div className="w-screen flex justify-between items-center py-4 bg-neutral-400 	">
+            <div className="w-screen flex justify-between items-center py-4 bg-neutral-400 	" >
                 <Link href="/" className="flex ml-10 gap-2 cursor-pointer">
                     <Image src="/logo.png" alt="logo" width={40} height={40} />
                     <div className="text-xl text-white">

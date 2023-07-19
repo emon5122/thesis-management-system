@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { MenuIcon } from "lucide-react";
-import { ListItem, ListItemButton } from "@mui/material";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getSession } from "next-auth/react";
@@ -127,58 +126,52 @@ const PersistentDrawerLeft = ({ children }: any) => {
           </Toolbar>
         </div>
       </AppBar>
-      
-        <Drawer
-          sx={{
+
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              backgroundColor: "#001930",
-            },
-          
-            
-            
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
+            boxSizing: "border-box",
+            backgroundColor: "rgb(100 116 139)",
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <div className="text-white">
           <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton color="inherit" onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? <MenuIcon /> : <MenuIcon />}
             </IconButton>
           </DrawerHeader>
-          <Divider />
-          {paths &&
-            paths.map((path, index) => {
-              return (
-                <div key={index}>
-                  <ul>
-                    <Link
-                      href={path.url}
-                      className="flex items-center p-2 rounded-lg text-white  hover:bg-cyan-600 group"
-                    >
-                      <span className="flex-1 ml-3 whitespace-nowrap text-white">
-                        {path.name}
-                      </span>
-                    </Link>
-                  </ul>
-                  <Divider />
-                </div>
-              );
-            })}
+        </div>
+        <Divider />
+        {paths &&
+          paths.map((path, index) => {
+            return (
+              <div key={index}>
+                <ul>
+                  <Link
+                    href={path.url}
+                    className="flex items-center p-2  text-white  hover:bg-slate-400"
+                  >
+                    <span className="flex-1 ml-3 whitespace-nowrap text-white">
+                      {path.name}
+                    </span>
+                  </Link>
+                </ul>
+                <hr className="bg-white" />
+              </div>
+            );
+          })}
 
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <LogOut />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Drawer>
-      
+        <List>
+          <LogOut />
+        </List>
+      </Drawer>
 
       <Main open={open}>
         <DrawerHeader />

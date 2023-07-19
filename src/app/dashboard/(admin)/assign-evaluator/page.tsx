@@ -81,11 +81,12 @@ const Assign = () => {
     const {
       target: { value },
     } = event;
+   
     setTeachers(typeof value === "string" ? value.split(",") : value);
   };
   console.log(errors);
   return (
-    <div className="w-full max-w-xs  ">
+    <div className="max-w-xs m-auto mt-5  ">
       <form
         className="bg-white  shadow-xl rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit((values: teacherFormBody) => {
@@ -94,6 +95,7 @@ const Assign = () => {
         })}
       >
         <div>{errors.id?.message}</div>
+        <InputLabel id="demo-multiple-chip-label">Thesis Title</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
