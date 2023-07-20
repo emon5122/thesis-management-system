@@ -10,11 +10,13 @@ export const GET = async (req: NextRequest) => {
     const studentlist = await prisma.thesis.findMany({
       where: { teacher: { some: { id: token.sub } } },
       select: {
+        id:true,
         student: {
           select: { id: true, name: true },
         },
       },
     });
+    console.log(studentlist)
     return NextResponse.json(studentlist, { status: 200 });
   } catch (e) {
     return NextResponse.json({ error: "Server Error" }, { status: 500 });

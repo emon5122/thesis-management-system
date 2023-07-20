@@ -73,7 +73,7 @@ const TabNotice = ({ id }: {id:string}) => {
             {...form.register("details")}
           />
         </div>
-        <Button variant="outlined" type="submit">
+        <Button className="hover:bg-slate-300" variant="outlined" type="submit">
           Submit
         </Button>
       </form>

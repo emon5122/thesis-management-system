@@ -2,19 +2,19 @@
 import { myAxios } from "@/lib/myaxios";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { z } from "zod";
 
 const List = () => {
-  const { data } = useQuery({
+  const { data: studentlist = [] } = useQuery({
     queryFn: async () => {
       const value = await myAxios.get("evaluatablelist");
-      return z
-        .array(z.object({ id: z.string().uuid(), name: z.string() }))
-        .parse(value.data);
+      return value.data;
     },
+
     queryKey: ["evaluatablelist"],
     staleTime: 300000,
   });
+  
+  console.log(studentlist)
   return (
     <div className="h-screen">
       <table className="m-auto border-2 ">
@@ -23,17 +23,25 @@ const List = () => {
             <th className="px-8 m-1 bg-cyan-700">Student Name</th>
           </tr>
         </thead>
-        {data &&
-          data.map((student) => {
+
+        <tbody>
+          {studentlist.map((thesis: any) => {
+            console.log(thesis);
             return (
-              <tbody key={student.id}>
-                <tr className="text-white border-t-2 mb-2">
-                  <td className="text-lg text-center">
-                    <Link className="underline hover:text-green-800" href={`/dashboard/profile/${student.id}`}> {student.name}</Link></td>
-                </tr>
-              </tbody>
+              <tr className="text-white border-t-2 mb-2" key={thesis.id}>
+                <td className="text-lg text-center">
+                  <Link
+                    className="underline hover:text-green-800"
+                    href={`/dashboard/profile/${thesis.id}`}
+                  >
+                    {" "}
+                    {thesis.student.name}
+                  </Link>
+                </td>
+              </tr>
             );
           })}
+        </tbody>
       </table>
     </div>
   );

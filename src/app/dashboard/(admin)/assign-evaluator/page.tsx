@@ -76,6 +76,9 @@ const Assign = () => {
       queryClient.invalidateQueries(["theses", "teachers"]);
       toast("Success!");
     },
+    onError: () => {
+      toast("error");
+    },
   });
   const handleChange = (event: SelectChangeEvent) => {
     const {
@@ -145,7 +148,7 @@ const Assign = () => {
             ))}
         </Select>
         <div className="text-3xl">{errors.teachers?.message}</div>
-        <Button className="mt-2" variant="outlined" type="submit">
+        <Button className="mt-2 hover:bg-slate-300" variant="outlined" type="submit">
           Submit
         </Button>
       </form>

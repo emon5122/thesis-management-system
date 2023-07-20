@@ -107,7 +107,7 @@ const Login=()=> {
         </div>
 
         <div className="w-1/2 self-center justify-center flex ">
-          <Button variant="outlined" type="submit">
+          <Button className="hover:bg-slate-300" variant="outlined" type="submit">
             Log in
           </Button>
         </div>
@@ -115,7 +115,7 @@ const Login=()=> {
 
       <div className="flex items-center justify-between  py-6 m-auto">
         <p className="mb-0 mr-2 text-white">{"Don't"} you have an account?</p>
-        <Button variant="outlined" type="submit">
+        <Button  className="hover:bg-slate-300" variant="outlined" type="submit">
         <Link href={"/signup"}>
         Sign up
         </Link>

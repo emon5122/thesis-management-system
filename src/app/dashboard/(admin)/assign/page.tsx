@@ -136,7 +136,7 @@ const Assign = () => {
                 </Select>
                 <br />
                 <div className="mx-20">
-                    <Button className="mt-5 " variant="outlined" type="submit">
+                    <Button className="mt-5 hover:bg-slate-300" variant="outlined" type="submit">
                         Submit
                     </Button>
                 </div>
