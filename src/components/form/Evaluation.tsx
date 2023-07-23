@@ -1,7 +1,57 @@
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { myAxios } from "@/lib/myaxios";
+import { toast } from "react-toastify";
+
+
 const Evaluation = ({ id }: { id: string }) => {
+  const queryClient = useQueryClient();
+  const evaluationValidator = z.object({
+    m1: z.number(),
+    m2: z.number(),
+    m3: z.number(),
+    m4: z.number(),
+    m5: z.number(),
+    m6: z.number(),
+  });
+  type evaluationType = z.infer<typeof evaluationValidator>;
+  const form = useForm<evaluationType>({
+    resolver: zodResolver(evaluationValidator),
+    defaultValues: {
+      m1: 0,
+      m2: 0,
+      m3: 0,
+      m4: 0,
+      m5: 0,
+      m6: 0,
+    },
+  });
+  
+  const evaluationMutation = useMutation({
+    mutationFn: async (data: evaluationType) => {
+      return await myAxios.post(`evaluation/${id}`, { ...data });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["evaluation", id]);
+      toast("Success");
+    },
+    onError: () => {
+      toast("error");
+    },
+  });
+
   return (
-    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-slate-500 border-2">
+    <form
+      className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-slate-500 border-2"
+      onSubmit={form.handleSubmit((values: evaluationType) => {
+        evaluationMutation.mutate(values);
+        form.reset();
+      })}
+    >
       <div className="grid grid-cols-6 ">
         <div className="mb-2  col-span-4 ">
           <div className="grid grid-cols-4  ">
@@ -17,6 +67,9 @@ const Evaluation = ({ id }: { id: string }) => {
                 className="  border rounded border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="number"
+                {...form.register("m1", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
@@ -34,6 +87,9 @@ const Evaluation = ({ id }: { id: string }) => {
                 className="  border rounded border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="number"
+                {...form.register("m2", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
@@ -51,6 +107,9 @@ const Evaluation = ({ id }: { id: string }) => {
                 className="  border rounded border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="number"
+                {...form.register("m3", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
@@ -67,6 +126,9 @@ const Evaluation = ({ id }: { id: string }) => {
                 className="  border rounded border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="number"
+                {...form.register("m4", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
@@ -83,6 +145,9 @@ const Evaluation = ({ id }: { id: string }) => {
                 className="  border rounded border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="number"
+                {...form.register("m5", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
@@ -100,6 +165,9 @@ const Evaluation = ({ id }: { id: string }) => {
                 className="  border rounded border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="number"
+                {...form.register("m6", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
