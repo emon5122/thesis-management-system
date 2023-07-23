@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
       where: {
         studentId: token?.sub
       },
-      select: { id: true, weekNumber: true, createdAt: true },
+      select: { id: true, weekNumber: true, createdAt: true,comments: true },
     });
     return NextResponse.json(attendances);
   } catch (e) {

@@ -4,7 +4,6 @@ import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-
 export const GET = async (req: NextRequest, { params }: ParamsType) => {
   const token = await getToken({ req });
   if (!token || !token?.sub || token?.role === "STUDENT") {
@@ -15,7 +14,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       where: {
         studentId: params.id,
       },
-      select: { id: true, weekNumber: true, createdAt: true },
+      select: { id: true, weekNumber: true, createdAt: true, comments: true },
     });
     return NextResponse.json(attendances);
   } catch (e) {
@@ -34,12 +33,17 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
   const validatedBody = z
     .object({
       weekNumber: z.number(),
+      comments: z.string(),
     })
     .parse(body);
 
   try {
     const attendance = await prisma.attendance.create({
-      data: { weekNumber: validatedBody.weekNumber, studentId: params.id },
+      data: {
+        weekNumber: validatedBody.weekNumber,
+        comments: validatedBody.comments,
+        studentId: params.id,
+      },
     });
     return NextResponse.json(attendance);
   } catch (e) {
@@ -48,4 +52,3 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
     await prisma.$disconnect();
   }
 };
-

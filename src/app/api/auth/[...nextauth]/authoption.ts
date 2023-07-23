@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { GetUserResult } from "@/types/login";
 import { compare } from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -15,7 +16,8 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials: Record<"email" | "password", string> | undefined,
+      ): Promise<GetUserResult> {
       const data= z.object({email: z.string().email(),password: z.string()}).parse(credentials)
       try {
         const user = await prisma.user.findUnique({
@@ -33,7 +35,7 @@ export const authOptions: NextAuthOptions = {
           }
           return user;
         } catch (e) {
-          console.log(e);
+          throw new Error()
         } finally {
           await prisma.$disconnect();
         }

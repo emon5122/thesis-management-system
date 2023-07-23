@@ -46,6 +46,7 @@ model Attendance {
   id         String   @id @default(uuid())
   studentId  String
   weekNumber Int
+  comments   String?
   createdAt  DateTime @default(now())
   student    User     @relation("studentAttendances", fields: [studentId], references: [id])
 }

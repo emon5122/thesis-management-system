@@ -29,6 +29,7 @@ CREATE TABLE "Attendance" (
     "id" TEXT NOT NULL,
     "studentId" TEXT NOT NULL,
     "weekNumber" INTEGER NOT NULL,
+    "comments" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Attendance_pkey" PRIMARY KEY ("id")
