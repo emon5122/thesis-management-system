@@ -3,9 +3,9 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import TabInfo from "@/components/profile/tabs/TabInfo";
-import TabAttendance from "@/components/profile/tabs/TabAttendance";
-import TabTask from "@/components/profile/tabs/TabTask";
+import TabInfo from "../profile/tabs/TabInfo";
+import TabAttendance from "../profile/tabs/TabAttendance";
+import TabTask from "../profile/tabs/TabTask";
 import { useState } from "react";
 import TabGrade from "./tabs/TabGrade";
 

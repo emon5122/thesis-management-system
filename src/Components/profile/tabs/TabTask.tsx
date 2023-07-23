@@ -1,4 +1,4 @@
-import TaskForm from "@/components/form/Task"
+import TaskForm from "../../form/Task"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 
 const TabTask = ({task,session,id}:any) => {

@@ -6,7 +6,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/DropDownMenu";
+} from "../components/ui/DropDownMenu";
 import { Button } from "@mui/material";
 import Badge from "@mui/material/Badge";
 import Notice from "./Notice";

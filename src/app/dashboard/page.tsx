@@ -1,7 +1,7 @@
 "use client";
 import { getSession } from "next-auth/react";
 import { useQueries } from "@tanstack/react-query";
-import StudentProfileTopNavigation from "@/components/profile/StudentProfile";
+import StudentProfileTopNavigation from "../../components/profile/StudentProfile";
 import { myAxios } from "@/lib/myaxios";
 
 const Page = () => {

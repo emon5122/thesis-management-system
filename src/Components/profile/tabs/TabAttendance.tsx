@@ -1,4 +1,4 @@
-import AttendanceForm from "@/components/form/Attendance";
+import AttendanceForm from "../../form/Attendance";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 const TabAttendance = ({ attendance, session, id }: any) => {

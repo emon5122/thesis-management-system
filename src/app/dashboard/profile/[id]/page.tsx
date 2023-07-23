@@ -1,5 +1,5 @@
 "use client";
-import ProfileTopNavigation from "@/components/profile/GeneralProfile";
+import ProfileTopNavigation from "../../../../components/profile/GeneralProfile";
 import { myAxios } from "@/lib/myaxios";
 import { ParamsType } from "@/types/api";
 import { useQueries } from "@tanstack/react-query";

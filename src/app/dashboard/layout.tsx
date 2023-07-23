@@ -1,4 +1,4 @@
-import PersistentDrawerLeft from "@/components/drawer";
+import PersistentDrawerLeft from "../../components/drawer";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (

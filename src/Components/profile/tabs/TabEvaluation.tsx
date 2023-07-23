@@ -1,5 +1,4 @@
-import React from 'react'
-import Evaluation from "@/components/form/Evaluation";
+import Evaluation from "../../form/Evaluation";
 const TabEvaluation = ({id}:any) => {
   return (
     <div>

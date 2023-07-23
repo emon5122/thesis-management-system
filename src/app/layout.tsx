@@ -1,6 +1,6 @@
 import "./globals.css";
-import Navbar from "@/components/Header";
-import Footer from "@/components/footer";
+import Navbar from "../components/Header";
+import Footer from "../components/footer";
 import AuthProvider from "@/context/authprovider";
 import QueryProvider from "@/context/queryProvider";
 import ToastProvider from "@/context/toastProvider";
