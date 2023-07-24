@@ -65,12 +65,18 @@ model Task {
 
 model Evaluation {
   id          String   @id @default(uuid())
-  marks       Json[]
+  m1          Int
+  m2          Int
+  m3          Int
+  m4          Int
+  m5          Int
+  m6          Int
   evaluatorID String
   createdAt   DateTime @default(now())
   thesisId    String
   thesis      Thesis   @relation("evaulationThesis", fields: [thesisId], references: [id])
   evaluator   User     @relation("evaulatorTeacher", fields: [evaluatorID], references: [id])
+  @@unique([thesisId,evaluatorID])
 }
 
 model Notice {

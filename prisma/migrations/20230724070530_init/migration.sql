@@ -52,7 +52,12 @@ CREATE TABLE "Task" (
 -- CreateTable
 CREATE TABLE "Evaluation" (
     "id" TEXT NOT NULL,
-    "marks" JSONB[],
+    "m1" INTEGER NOT NULL,
+    "m2" INTEGER NOT NULL,
+    "m3" INTEGER NOT NULL,
+    "m4" INTEGER NOT NULL,
+    "m5" INTEGER NOT NULL,
+    "m6" INTEGER NOT NULL,
     "evaluatorID" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "thesisId" TEXT NOT NULL,

@@ -6,21 +6,15 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { myAxios } from "@/lib/myaxios";
 import { toast } from "react-toastify";
+import EvaluationValidator from "@/schema/evaluation";
 
 
 const Evaluation = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
-  const evaluationValidator = z.object({
-    m1: z.number(),
-    m2: z.number(),
-    m3: z.number(),
-    m4: z.number(),
-    m5: z.number(),
-    m6: z.number(),
-  });
-  type evaluationType = z.infer<typeof evaluationValidator>;
+  
+  type evaluationType = z.infer<typeof EvaluationValidator>;
   const form = useForm<evaluationType>({
-    resolver: zodResolver(evaluationValidator),
+    resolver: zodResolver(EvaluationValidator),
     defaultValues: {
       m1: 0,
       m2: 0,

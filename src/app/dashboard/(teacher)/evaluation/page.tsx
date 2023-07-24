@@ -14,7 +14,6 @@ const List = () => {
     staleTime: 300000,
   });
   
-  console.log(studentlist)
   return (
     <div className="h-screen">
       <table className="m-auto border-2 ">
@@ -32,9 +31,8 @@ const List = () => {
                 <td className="text-lg text-center">
                   <Link
                     className="underline hover:text-green-800"
-                    href={`/dashboard/profile/${thesis.id}`}
+                    href={`/dashboard/profile/${thesis.student.id}`}
                   >
-                    {" "}
                     {thesis.student.name}
                   </Link>
                 </td>
