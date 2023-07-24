@@ -66,7 +66,7 @@ const TabNotice = ({ id }: {id:string}) => {
             Notice
           </label>
           <textarea 
-                      className="w-full h-32 resize-y shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className=" h-32 resize-y shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="name"
            
             placeholder="Notice"

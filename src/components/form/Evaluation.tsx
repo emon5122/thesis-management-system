@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { myAxios } from "@/lib/myaxios";
@@ -11,7 +11,14 @@ import EvaluationValidator from "@/schema/evaluation";
 
 const Evaluation = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
-  
+  const { data: list } = useQuery({
+    queryFn: async () => {
+      const res = await myAxios.get(`evaluation/${id}`);
+      return res.data;
+    },
+    queryKey: ["evaluation", id],
+    staleTime: 50000,
+  });
   type evaluationType = z.infer<typeof EvaluationValidator>;
   const form = useForm<evaluationType>({
     resolver: zodResolver(EvaluationValidator),
@@ -185,8 +192,9 @@ const Evaluation = ({ id }: { id: string }) => {
           </Button>
         </div>
       </div>
-
-      <p className="mt-2 ">Total: 90</p>
+      <p className="mt-2 ">Total: {list?.totalGrade}</p>
+      
+ 
     </form>
   );
 };
