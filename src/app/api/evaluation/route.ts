@@ -30,7 +30,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     let sumM4: number = 0;
     let sumM5: number = 0;
     let sumM6: number = 0;
-
+    let item=0;
     evaluationList.map((evaluationItem) => {
       if (evaluationItem.m1) {
         sumM1 = sumM1 + evaluationItem.m1;
@@ -50,7 +50,9 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       if (evaluationItem.m6) {
         sumM6 = sumM6 + evaluationItem.m6;
       }
+      item++;
     });
+    console.log(item)
     const avgM1 = sumM1 / evaluationList.length;
     const avgM2 = sumM2 / evaluationList.length;
     const avgM3 = sumM3 / evaluationList.length;
@@ -77,6 +79,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       m5: avgM5,
       m6: avgM6,
       totalGrade: grade,
+      itemcount: item
     });
   } catch (e) {
     console.log(e);

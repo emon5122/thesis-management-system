@@ -24,10 +24,7 @@ const List = () => {
         </thead>
 
         <tbody>
-          {studentlist.map((thesis: any) => {
-            console.log(thesis);
-            return (
-              <tr className="text-white border-t-2 mb-2" key={thesis.id}>
+          {studentlist.map((thesis: any) => <tr className="text-white border-t-2 mb-2" key={thesis.id}>
                 <td className="text-lg text-center">
                   <Link
                     className="underline hover:text-green-800"
@@ -36,9 +33,7 @@ const List = () => {
                     {thesis.student.name}
                   </Link>
                 </td>
-              </tr>
-            );
-          })}
+              </tr>)}
         </tbody>
       </table>
     </div>
