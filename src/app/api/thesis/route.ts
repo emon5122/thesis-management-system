@@ -1,4 +1,4 @@
-import { evaluatorsList } from './../../../schema/thesis/adminThesis';
+import { evaluatorsList } from "./../../../schema/thesis/adminThesis";
 import { prisma } from "@/lib/prisma";
 import { thesisBody } from "@/schema/thesis/adminThesis";
 import { getToken } from "next-auth/jwt";
@@ -34,24 +34,18 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
         studentId: token.sub,
       },
       select: {
-        teacher: true,
+        evaluation: true,
       },
     });
-    const teacherCount = evaluatorCount.reduce((count, thesis) => count + thesis.teacher.length, 0);
+    const teacherCount = evaluatorCount.reduce(
+      (count, thesis) => count + thesis.evaluation.length,
+      0
+    );
 
     return NextResponse.json({
-      teacherCount
+      teacherCount,
     });
-
-    return NextResponse.json({
-      teacherCount 
-    });
-  }
-  
- 
-
-  
-  catch (e) {
+  } catch (e) {
     console.log(e);
   } finally {
     await prisma.$disconnect();

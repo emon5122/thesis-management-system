@@ -32,7 +32,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     let sumM4: number = 0;
     let sumM5: number = 0;
     let sumM6: number = 0;
-
+    let item=0;
     evaluationList.map((evaluationItem) => {
       if (evaluationItem.m1) {
         sumM1 = sumM1 + evaluationItem.m1;
@@ -52,7 +52,9 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       if (evaluationItem.m6) {
         sumM6 = sumM6 + evaluationItem.m6;
       }
+      item++;
     });
+    console.log(item)
     const avgM1 = sumM1 / evaluationList.length;
     const avgM2 = sumM2 / evaluationList.length;
     const avgM3 = sumM3 / evaluationList.length;
@@ -61,15 +63,16 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     const avgM6 = sumM6 / evaluationList.length;
     const avgTotal = avgM1 + avgM2 + avgM3 + avgM4 + avgM5 + avgM6;
     let grade = "";
-    if (avgTotal >= 90 && avgTotal <= 100) {
+    if (avgTotal >= 90 || avgTotal <= 100) {
       grade = "A";
-    } else if (avgTotal >= 80 && avgTotal < 90) {
+    } else if (avgTotal >= 80 || avgTotal < 90) {
       grade = "B";
-    } else if (avgTotal >= 70 && avgTotal < 80) {
+    } else if (avgTotal >= 70 || avgTotal < 80) {
       grade = "C";
-    } else if (avgTotal >= 60 && avgTotal < 70) {
+    } else if (avgTotal >= 60 || avgTotal < 70) {
       grade = "D";
     } else grade = "F";
+
     return NextResponse.json({
       m1: avgM1,
       m2: avgM2,
@@ -77,9 +80,8 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       m4: avgM4,
       m5: avgM5,
       m6: avgM6,
-      total: avgTotal,
       totalGrade: grade,
-      theisId: evaluationList[0].thesisId
+      itemCount: item
     });
   } catch (e) {
     console.log(e);

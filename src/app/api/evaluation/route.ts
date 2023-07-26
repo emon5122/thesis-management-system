@@ -79,7 +79,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       m5: avgM5,
       m6: avgM6,
       totalGrade: grade,
-      itemcount: item
+      itemCount: item
     });
   } catch (e) {
     console.log(e);

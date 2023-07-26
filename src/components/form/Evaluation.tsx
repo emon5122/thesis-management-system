@@ -7,10 +7,11 @@ import { useForm } from "react-hook-form";
 import { myAxios } from "@/lib/myaxios";
 import { toast } from "react-toastify";
 import EvaluationValidator from "@/schema/evaluation";
-
+import { getSession } from "next-auth/react";
 
 const Evaluation = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
+ 
   const { data: list } = useQuery({
     queryFn: async () => {
       const res = await myAxios.get(`evaluation/${id}`);
@@ -19,6 +20,31 @@ const Evaluation = ({ id }: { id: string }) => {
     queryKey: ["evaluation", id],
     staleTime: 50000,
   });
+  const { data: thesis } = useQuery({
+    queryFn: async () => {
+      const res = await myAxios.get(`grade/${id}`);
+      return res.data;
+    },
+    queryKey: ["grade", id],
+    staleTime: 50000,
+  });
+  const index = 0; // The index you want to access
+
+const sId = thesis?.[index]?.supervisorId;
+
+// Now supervisorId will be the supervisorId from the object at the specified index, or undefined if the index is out of bounds or thesis is undefined.
+console.log(sId);
+
+  
+  const { data: session } = useQuery({
+    queryFn: async () => {
+      return await getSession();
+    },
+    queryKey: ["session"],
+    staleTime: 60000,
+  });
+  console.log(list);
+
   type evaluationType = z.infer<typeof EvaluationValidator>;
   const form = useForm<evaluationType>({
     resolver: zodResolver(EvaluationValidator),
@@ -31,7 +57,7 @@ const Evaluation = ({ id }: { id: string }) => {
       m6: 0,
     },
   });
-  
+
   const evaluationMutation = useMutation({
     mutationFn: async (data: evaluationType) => {
       return await myAxios.post(`evaluation/${id}`, { ...data });
@@ -44,6 +70,10 @@ const Evaluation = ({ id }: { id: string }) => {
       toast("error");
     },
   });
+console.log(session?.user.id)
+
+const supervisorId = thesis?.supervisorId;
+console.log(supervisorId); 
 
   return (
     <form
@@ -192,9 +222,11 @@ const Evaluation = ({ id }: { id: string }) => {
           </Button>
         </div>
       </div>
-      <p className="mt-2 ">Total: {list?.totalGrade}</p>
-      
- 
+      {session?.user.id === thesis?.supervisorId ? (
+        <p className="mt-2 ">Total: {list?.totalGrade}</p>
+      ) : (
+        "jkh"
+      )}
     </form>
   );
 };
