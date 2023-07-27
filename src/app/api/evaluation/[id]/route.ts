@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import EvaluationValidator from "@/schema/evaluation";
+import { evaluatorsList } from "@/schema/thesis/adminThesis";
 import { ParamsType } from "@/types/api";
 import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
@@ -23,7 +24,8 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
         m4: true,
         m5: true,
         m6: true,
-        thesisId:true
+        thesisId:true,
+        comment: true,
       },
     });
     let sumM1: number = 0;
@@ -33,6 +35,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     let sumM5: number = 0;
     let sumM6: number = 0;
     let item=0;
+  
     evaluationList.map((evaluationItem) => {
       if (evaluationItem.m1) {
         sumM1 = sumM1 + evaluationItem.m1;
@@ -54,7 +57,6 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       }
       item++;
     });
-    console.log(item)
     const avgM1 = sumM1 / evaluationList.length;
     const avgM2 = sumM2 / evaluationList.length;
     const avgM3 = sumM3 / evaluationList.length;
@@ -80,11 +82,12 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       m4: avgM4,
       m5: avgM5,
       m6: avgM6,
+      // comment: evaluationList,
       totalGrade: grade,
       itemCount: item
     });
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }
@@ -114,7 +117,7 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
     }
     return NextResponse.json({ err: "something went wrong" }, { status: 500 });
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }

@@ -69,7 +69,6 @@ const Assign = () => {
 
   const assignMutation = useMutation({
     mutationFn: async (data: teacherFormBody) => {
-      console.log(data);
       return await myAxios.patch(`/thesis/${data.id}`, [...data.teachers]);
     },
     onSuccess: () => {
@@ -87,7 +86,6 @@ const Assign = () => {
    
     setTeachers(typeof value === "string" ? value.split(",") : value);
   };
-  console.log(errors);
   return (
     <div className="max-w-xs m-auto mt-5  ">
       <form

@@ -19,10 +19,10 @@ export const GET = async (req: any, { params }: ParamsType) => {
     
       },
     });
-    console.log(theses, "dwad")
+   
     return NextResponse.json(theses);
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }

@@ -16,7 +16,7 @@ export const GET = async (req: NextRequest) => {
     });
     return NextResponse.json(attendances);
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }

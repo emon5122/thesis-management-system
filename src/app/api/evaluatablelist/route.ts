@@ -16,7 +16,6 @@ export const GET = async (req: NextRequest) => {
         },
       },
     });
-    console.log(studentlist)
     return NextResponse.json(studentlist, { status: 200 });
   } catch (e) {
     return NextResponse.json({ error: "Server Error" }, { status: 500 });

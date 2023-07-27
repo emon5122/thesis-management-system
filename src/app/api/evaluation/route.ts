@@ -52,7 +52,6 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       }
       item++;
     });
-    console.log(item)
     const avgM1 = sumM1 / evaluationList.length;
     const avgM2 = sumM2 / evaluationList.length;
     const avgM3 = sumM3 / evaluationList.length;
@@ -82,7 +81,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       itemCount: item
     });
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }

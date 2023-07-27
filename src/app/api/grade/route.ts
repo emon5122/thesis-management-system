@@ -20,7 +20,7 @@ export const GET = async (req: any) => {
     });
     return NextResponse.json(theses);
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }

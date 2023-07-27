@@ -35,7 +35,6 @@ model Thesis {
   studentId    String       @unique
   supervisorId String
   createdAt    DateTime     @default(now())
-  evaluations  String[]
   student      User         @relation("thesisAsStudent", fields: [studentId], references: [id], onDelete: Cascade)
   teacher      User[]
   Task         Task[]       @relation("thesisTask")
@@ -71,6 +70,7 @@ model Evaluation {
   m4          Int
   m5          Int
   m6          Int
+  comment     String
   evaluatorID String
   createdAt   DateTime @default(now())
   thesisId    String

@@ -40,7 +40,6 @@ const Signup = () => {
     },
   });
   const onSubmit = (values: registrationType) => {
-    console.log(values)
     signUpMutation.mutate(values);
 
     form.reset();

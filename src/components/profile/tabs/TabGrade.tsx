@@ -26,8 +26,7 @@ const TabGrade = ({ session, id }: any) => {
     queryKey: ["count"],
     staleTime: 300000,
   });
-  console.log(count?.teacherCount);
-  console.log(grade);
+
 
   return (
     <div className="h-full">

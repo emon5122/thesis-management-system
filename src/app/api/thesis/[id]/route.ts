@@ -51,7 +51,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     });
 
   } catch (e) {
-    console.log(e);
+    return NextResponse.json(e);
   } finally {
     await prisma.$disconnect();
   }
