@@ -12,6 +12,7 @@ import TabEvaluation from "./tabs/TabEvaluation";
 
 
 const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
+  
   const [value, setValue] = useState("1");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -30,7 +31,7 @@ const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <TabInfo user={user} />
+          <TabInfo user={user} id={id} />
         </TabPanel>
         <TabPanel value="2">
           <TabAttendance attendance={attendance} session={session} id={id} />

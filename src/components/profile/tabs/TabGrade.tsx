@@ -19,14 +19,24 @@ const TabGrade = ({ session, id }: any) => {
   });
   const { data: count } = useQuery({
     queryFn: async () => {
-      const value = await myAxios.get("thesis");
+      const value = await myAxios.get("teacher-count");
       return value.data;
     },
 
     queryKey: ["count"],
     staleTime: 300000,
   });
+  const { data: evcount } = useQuery({
+    queryFn: async () => {
+      const value = await myAxios.get("evaluation-count");
+      return value.data;
+    },
 
+    queryKey: ["evcount"],
+    staleTime: 300000,
+  });
+console.log(evcount?.evaluationCount)
+console.log(count?.teacherCount+1)
 
   return (
     <div className="h-full">
@@ -38,8 +48,8 @@ const TabGrade = ({ session, id }: any) => {
           image="/grade.jpg"
           alt="Grade"
         />
-        {grade?.itemCount !== undefined && count?.teacherCount !== undefined ? (
-          count?.teacherCount === grade?.itemCount && grade?.itemCount !== 0 ? (
+        {evcount?.evaluationCount  !== undefined && count?.teacherCount !== undefined ? (
+          evcount?.evaluationCount === count?.teacherCount+1  ? (
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 You have got : {grade?.totalGrade}

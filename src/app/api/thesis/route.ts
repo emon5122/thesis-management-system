@@ -41,7 +41,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       (count, thesis) => count + thesis.evaluation.length,
       0
     );
-
+    console.log(teacherCount)
     return NextResponse.json({
       teacherCount,
     });

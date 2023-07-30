@@ -5,6 +5,8 @@ import { ParamsType } from "@/types/api";
 import { useQueries } from "@tanstack/react-query";
 import { getSession } from "next-auth/react";
 
+export const revalidate="no-store"
+
 const Profile = ({ params: { id } }: ParamsType) => {
   const results = useQueries({
     queries: [
@@ -41,11 +43,14 @@ const Profile = ({ params: { id } }: ParamsType) => {
       },
     ],
   });
-  const { data: user } = results[0];
+  const { data: user, isLoading:userLoading } = results[0];
   const { data: attendance } = results[1];
-  const { data: session } = results[2];
+  const { data: session, isLoading: sessionLoading } = results[2];
   const { data: task } = results[3];
 
+  if (userLoading || sessionLoading){
+    return(<>Loading...</>)
+  }
   return (
     <ProfileTopNavigation
       id={id}
@@ -54,6 +59,7 @@ const Profile = ({ params: { id } }: ParamsType) => {
       task={task}
       user={user}
     />
+    
   );
 };
 export default Profile;

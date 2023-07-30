@@ -82,7 +82,6 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       m4: avgM4,
       m5: avgM5,
       m6: avgM6,
-      // comment: evaluationList,
       totalGrade: grade,
       itemCount: item
     });
