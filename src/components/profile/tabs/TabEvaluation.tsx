@@ -29,26 +29,6 @@ const TabEvaluation = ({ id }: any) => {
     staleTime: 50000,
   });
 
-  const { data: thesis } = useQuery({
-    queryFn: async () => {
-      const res = await myAxios.get(`grade/${id}`);
-      return res.data;
-    },
-    queryKey: ["grade", id],
-    staleTime: 50000,
-  });
-  const index = 0;
-
-  const sId = thesis?.[index]?.supervisorId;
-
-  const { data: session } = useQuery({
-    queryFn: async () => {
-      return await getSession();
-    },
-    queryKey: ["session"],
-    staleTime: 60000,
-  });
-
   type evaluationType = z.infer<typeof EvaluationValidator>;
   const form = useForm<evaluationType>({
     resolver: zodResolver(EvaluationValidator),
@@ -81,7 +61,9 @@ const TabEvaluation = ({ id }: any) => {
     return (
       <div>
         {!data ? (
-          <div className="text-xl text-center mb-2 text-white">You have already submitted!</div>
+          <div className="text-xl text-center mb-2 text-white">
+            You have already submitted!
+          </div>
         ) : (
           ""
         )}
@@ -316,7 +298,7 @@ const TabEvaluation = ({ id }: any) => {
     );
   }
 
-  return <div>Loading...</div>;
+  return <div className="text-white">Loading...</div>;
 };
 
 export default TabEvaluation;

@@ -20,10 +20,10 @@ const TabAttendance = ({ attendance, session, id }: any) => {
 
   return (
     <div className="flex flex-row justify-between gap-10">
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 400, width: "100%",overflowX: "auto" }}>
         {attendance && (
           <DataGrid
-            style={{ color: "white" }}
+            style={{ color: "white"}}
             rows={attendance}
             columns={columns}
             initialState={{

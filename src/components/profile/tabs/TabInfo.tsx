@@ -50,7 +50,8 @@ const TabInfo = ({ user, id }: any) => {
     queryKey: ["thesis"],
     staleTime: 50000,
   });
-
+  console.log(session?.user.id) 
+  console.log(thesis?.supervisorId)
   return (
     <div>
       <div className="border-2 border-dashed border-white shadow-lg p-6">
@@ -75,12 +76,14 @@ const TabInfo = ({ user, id }: any) => {
             <div className="col-span-1">{":"}</div>
             <div className="col-span-3">{user?.role}</div>
           </div>
-          {session?.user.id === thesis?.supervisorId ? (
+          {session?.user.id === thesis?.supervisorId  ? (
             <div className="grid grid-cols-6">
               <div className="col-span-2">GRADE</div>
               <div className="col-span-1">{":"}</div>
-              {evcount?.evaluationCount  !== undefined && count?.teacherCount !== undefined ? (
-                evcount?.evaluationCount === count?.teacherCount+1  ? (
+              
+              {evcount?.evaluationCount !== undefined &&
+              count?.teacherCount !== undefined ? (
+                evcount?.evaluationCount === count?.teacherCount + 1 ? (
                   <div className="col-span-3">{grade?.totalGrade}</div>
                 ) : (
                   <div className="col-span-3">N/A</div>

@@ -49,7 +49,7 @@ const Profile = ({ params: { id } }: ParamsType) => {
   const { data: task } = results[3];
 
   if (userLoading || sessionLoading){
-    return(<>Loading...</>)
+    return(<div className="text-white">Loading...</div>)
   }
   return (
     <ProfileTopNavigation

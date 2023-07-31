@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     try {
       const evaluatorCount = await prisma.thesis.findMany({
         where: {
-          studentId: token.sub,
+          studentId: params.id,
         },
         select: {
           evaluation: true,
