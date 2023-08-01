@@ -1,8 +1,5 @@
 export default async function Home() {
-    const a = {
-        "a": {"d": 2, "a": 3},
-        "b": {"d": 2, "a": 3},
-      }
+    
     return (
         <main className="w-full bg-no-repeat px-5 py-5 bg-cover bg-[url('/home.jpg')]	">
             <div className="flex justify-center items-center h-screen text-3xl text-white">

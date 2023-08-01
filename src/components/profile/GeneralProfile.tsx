@@ -9,10 +9,9 @@ import TabTask from "../../components/profile/tabs/TabTask";
 import { useState } from "react";
 import TabNotice from "./tabs/TabNotice";
 import TabEvaluation from "./tabs/TabEvaluation";
-
+import TabResult from "./tabs/TabResult";
 
 const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
-  
   const [value, setValue] = useState("1");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -27,7 +26,12 @@ const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
             <Tab style={{ color: "white" }} label="Attendance" value="2" />
             <Tab style={{ color: "white" }} label="Tasks" value="3" />
             <Tab style={{ color: "white" }} label="Notices" value="4" />
-            <Tab style={{ color: "white" }} label="Evaluation" value="5" />
+            {session?.user?.role !== "ADMIN" && (
+              <Tab style={{ color: "white" }} label="Evaluation" value="5" />
+            )}
+{session?.user?.role === "ADMIN" && (
+            <Tab style={{ color: "white" }} label="Result" value="6" />
+)}
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -42,9 +46,16 @@ const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
         <TabPanel value="4">
           <TabNotice id={id} session={session} />
         </TabPanel>
-        <TabPanel value="5">
-          <TabEvaluation id={id} session={session} user={user} />
-        </TabPanel>
+        {session?.user?.role !== "ADMIN" && (
+          <TabPanel value="5">
+            <TabEvaluation id={id} />
+          </TabPanel>
+        )}
+        {session?.user?.role === "ADMIN" && (
+          <TabPanel value="6">
+            <TabResult id={id} />
+          </TabPanel>
+        )}
       </TabContext>
     </Box>
   );

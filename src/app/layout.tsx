@@ -21,12 +21,12 @@ export default function RootLayout({
             <body>
                 <AuthProvider>
                     <QueryProvider>
-                        <div className="h-full bg-gradient-to-r from-slate-300 to-slate-500">
+                        <div className="min-h-screen bg-gradient-to-r from-slate-300 to-slate-500">
                             <Navbar />
                             {children}
+                        <Footer />
                         </div>
                         <ToastProvider />
-                        <Footer />
                     </QueryProvider>
                 </AuthProvider>
             </body>

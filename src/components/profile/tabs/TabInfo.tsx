@@ -48,7 +48,7 @@ const TabInfo = ({ user, session, id }: any) => {
             <div className="col-span-1">{":"}</div>
             <div className="col-span-3">{user?.role}</div>
           </div>
-          {session?.user?.id === user?.thesisAsStudent?.supervisorId && (
+          { ((session?.user?.id === user?.thesisAsStudent?.supervisorId) || (session?.user?.role === "ADMIN")) && (
             <div className="grid grid-cols-6">
               <div className="col-span-2">GRADE</div>
               <div className="col-span-1">{":"}</div>

@@ -3,7 +3,7 @@ import PersistentDrawerLeft from "../../components/drawer";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <PersistentDrawerLeft>
-      <div className="h-screen">{children}</div>
+      <div className="min-h-screen">{children}</div>
     </PersistentDrawerLeft>
   );
 };

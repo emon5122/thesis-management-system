@@ -65,12 +65,12 @@ const {data: evaluationList,isLoading:evalLoading,isError:evalError}=useQuery({
 if(evalError) throw new Error()
   if (!isLoading && !isError) {
     return (
-      <div>
+      <div className="">
           
         {!data ? (
           <div className="text-xl text-center mb-2 text-white">
             <p>You have already submitted!</p>
-            {}
+         
             {!evalLoading&& evaluationList.length && evaluationList.map((evaluation:any,index:number)=>{
           return(<SingleEvaluation param={evaluation} key={index}/>)
         })}

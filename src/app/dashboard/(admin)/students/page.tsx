@@ -17,7 +17,7 @@ const List = () => {
     staleTime: 300000,
   });
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <table className="m-auto border-2 ">
         <thead>
           <tr className="text-white">
