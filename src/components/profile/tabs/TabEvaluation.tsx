@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { myAxios } from "@/lib/myaxios";
 import { toast } from "react-toastify";
 import EvaluationValidator from "@/schema/evaluation";
-import { getSession } from "next-auth/react";
+import SingleEvaluation from "@/components/evaluation";
 
 const TabEvaluation = ({ id }: any) => {
   const { data, isLoading, isError } = useQuery({
@@ -28,7 +28,13 @@ const TabEvaluation = ({ id }: any) => {
     queryKey: ["single-evaluation", id],
     staleTime: 50000,
   });
-
+const {data: evaluationList,isLoading:evalLoading,isError:evalError}=useQuery({
+  queryFn:async()=>{
+    const res = myAxios.get(`grade/${id}`)
+    return (await res).data
+  },queryKey:["grade", id],
+  staleTime:50000
+})
   type evaluationType = z.infer<typeof EvaluationValidator>;
   const form = useForm<evaluationType>({
     resolver: zodResolver(EvaluationValidator),
@@ -56,18 +62,22 @@ const TabEvaluation = ({ id }: any) => {
       toast("error");
     },
   });
-
+if(evalError) throw new Error()
   if (!isLoading && !isError) {
     return (
       <div>
+          
         {!data ? (
           <div className="text-xl text-center mb-2 text-white">
-            You have already submitted!
+            <p>You have already submitted!</p>
+            {}
+            {!evalLoading&& evaluationList.length && evaluationList.map((evaluation:any,index:number)=>{
+          return(<SingleEvaluation param={evaluation} key={index}/>)
+        })}
+            
           </div>
         ) : (
-          ""
-        )}
-        <form
+          <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-justify border-slate-500 border-2"
           onSubmit={form.handleSubmit((values: evaluationType) => {
             evaluationMutation.mutate(values);
@@ -294,6 +304,10 @@ const TabEvaluation = ({ id }: any) => {
             )}
           </div>
         </form>
+        )}
+       
+        
+     
       </div>
     );
   }

@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { ParamsType } from "@/types/api";
 import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest, { params }: ParamsType) => {
+export const GET = async (req: NextRequest) => {
   const token = await getToken({ req });
   if (!token || !token?.sub  ) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -11,7 +10,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
 
   try {
     const student = await prisma.user.findUnique({
-      where: { id: params.id },
+      where: { id: token.sub },
       select: {
         id: true,
         name: true,

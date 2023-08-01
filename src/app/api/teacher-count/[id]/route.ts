@@ -8,7 +8,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     try {
-      const evaluatorCount = await prisma.thesis.findMany({
+      const teacherCount = await prisma.thesis.findMany({
         where: {
           studentId: params.id,
         },
@@ -16,17 +16,22 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
           teacher: true,
         },
       });
-      const teacherCount = evaluatorCount.reduce(
-        (count, thesis) => count + thesis.teacher.length,
-        0
-      );
+      const evaluatorCount = await prisma.thesis.findMany({
+        where: {
+          studentId: params.id,
+        },
+        select: {
+          evaluation: true,
+        },
+      });
+    
   
       return NextResponse.json({
-        teacherCount,
+        isGrade: !Boolean(evaluatorCount.length -teacherCount.length+1),
       });
   
     } catch (e) {
-      return NextResponse.json(e);
+      return NextResponse.json(e, {status:500});
     } finally {
       await prisma.$disconnect();
     }

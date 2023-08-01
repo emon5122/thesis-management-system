@@ -30,13 +30,23 @@ const Page = () => {
         queryKey: ["task"],
         staleTime: 30000,
       },
+      {
+        queryFn: async () => {
+          const task = await myAxios.get("me");
+          return task.data;
+        },
+        queryKey: ["me"],
+        staleTime: 30000,
+      },
       
     ],
   });
 
   const { data: attendance } = results[0];
   const { data: task } = results[2];
+  const { data: user } = results[3];
   const { data: session, isLoading, isError, error } = results[1];
+
   if (!isLoading && !isError) {
     if (session?.user?.role !== "STUDENT") {
       return (
@@ -67,7 +77,7 @@ const Page = () => {
   
       );
     } else {
-      return <StudentProfileTopNavigation session={session} attendance={attendance} task={task}/>
+      return <StudentProfileTopNavigation session={session} user={user}attendance={attendance} task={task}/>
     }
   }
   if (error) {

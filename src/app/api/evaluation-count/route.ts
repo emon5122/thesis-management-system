@@ -26,7 +26,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       });
   
     } catch (e) {
-      return NextResponse.json(e);
+      return NextResponse.json(e, {status:500});
     } finally {
       await prisma.$disconnect();
     }

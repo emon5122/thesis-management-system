@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@uploadthing/react/styles.css";
 import Navbar from "../components/Header";
 import Footer from "../components/footer";
 import AuthProvider from "@/context/authprovider";

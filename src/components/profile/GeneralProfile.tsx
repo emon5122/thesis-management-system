@@ -31,7 +31,7 @@ const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <TabInfo user={user} id={id} />
+          <TabInfo user={user} id={id} session={session} />
         </TabPanel>
         <TabPanel value="2">
           <TabAttendance attendance={attendance} session={session} id={id} />
@@ -40,10 +40,10 @@ const ProfileTopNavigation = ({ session, task, attendance, id, user }: any) => {
           <TabTask task={task} session={session} id={id} />
         </TabPanel>
         <TabPanel value="4">
-          <TabNotice id={id} />
+          <TabNotice id={id} session={session} />
         </TabPanel>
         <TabPanel value="5">
-          <TabEvaluation id={id} />
+          <TabEvaluation id={id} session={session} user={user} />
         </TabPanel>
       </TabContext>
     </Box>

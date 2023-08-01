@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import EvaluationValidator from "@/schema/evaluation";
-import { evaluatorsList } from "@/schema/thesis/adminThesis";
 import { ParamsType } from "@/types/api";
 import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
@@ -86,7 +85,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
       itemCount: item
     });
   } catch (e) {
-    return NextResponse.json(e);
+    return NextResponse.json(e, {status:500});
   } finally {
     await prisma.$disconnect();
   }
@@ -116,7 +115,7 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
     }
     return NextResponse.json({ err: "something went wrong" }, { status: 500 });
   } catch (e) {
-    return NextResponse.json(e);
+    return NextResponse.json(e, {status:500});
   } finally {
     await prisma.$disconnect();
   }

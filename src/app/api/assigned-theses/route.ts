@@ -21,7 +21,7 @@ export const GET = async (req: any) => {
     });
     return NextResponse.json(theses);
   } catch (e) {
-    return NextResponse.json(e);
+    return NextResponse.json(e, {status:500});
   } finally {
     await prisma.$disconnect();
   }

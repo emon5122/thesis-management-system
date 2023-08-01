@@ -24,7 +24,7 @@ export const GET = async (req: NextRequest) => {
     });
     return NextResponse.json(notices);
   } catch (e) {
-    return NextResponse.json(e);
+    return NextResponse.json(e, {status:500});
   } finally {
     await prisma.$disconnect();
   }

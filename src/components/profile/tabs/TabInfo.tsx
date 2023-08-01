@@ -2,9 +2,8 @@
 
 import { myAxios } from "@/lib/myaxios";
 import { useQuery } from "@tanstack/react-query";
-import { getSession } from "next-auth/react";
 
-const TabInfo = ({ user, id }: any) => {
+const TabInfo = ({ user, session, id }: any) => {
   const { data: grade } = useQuery({
     queryFn: async () => {
       const value = await myAxios.get(`evaluation/${id}`);
@@ -14,44 +13,17 @@ const TabInfo = ({ user, id }: any) => {
     queryKey: ["grade"],
     staleTime: 300000,
   });
-  const { data: count } = useQuery({
+  const { data: count,isLoading } = useQuery({
     queryFn: async () => {
-      const value = await myAxios.get(`teacher-count/${id}`);
+      const value = await myAxios.get(`result-publishable/${id}`);
       return value.data;
     },
-
-    queryKey: ["count"],
+    queryKey: ["result-publishable",id],
     staleTime: 300000,
   });
 
-  const { data: evcount } = useQuery({
-    queryFn: async () => {
-      const value = await myAxios.get(`evaluation-count/${id}`);
-      return value.data;
-    },
+  
 
-    queryKey: ["evcount"],
-    staleTime: 300000,
-  });
-  console.log(evcount?.evaluationCount);
-  console.log(count?.teacherCount + 1);
-  const { data: session } = useQuery({
-    queryFn: async () => {
-      return await getSession();
-    },
-    queryKey: ["session"],
-    staleTime: 60000,
-  });
-  const { data: thesis } = useQuery({
-    queryFn: async () => {
-      const res = await myAxios.get(`grade/${id}`);
-      return res.data;
-    },
-    queryKey: ["thesis"],
-    staleTime: 50000,
-  });
-  console.log(session?.user.id) 
-  console.log(thesis?.supervisorId)
   return (
     <div>
       <div className="border-2 border-dashed border-white shadow-lg p-6">
@@ -76,24 +48,17 @@ const TabInfo = ({ user, id }: any) => {
             <div className="col-span-1">{":"}</div>
             <div className="col-span-3">{user?.role}</div>
           </div>
-          {session?.user.id === thesis?.supervisorId  ? (
+          {session?.user?.id === user?.thesisAsStudent?.supervisorId && (
             <div className="grid grid-cols-6">
               <div className="col-span-2">GRADE</div>
               <div className="col-span-1">{":"}</div>
-              
-              {evcount?.evaluationCount !== undefined &&
-              count?.teacherCount !== undefined ? (
-                evcount?.evaluationCount === count?.teacherCount + 1 ? (
-                  <div className="col-span-3">{grade?.totalGrade}</div>
-                ) : (
-                  <div className="col-span-3">N/A</div>
-                )
+
+              {!isLoading && count?.isGrade ? (
+                <div className="col-span-3">{grade?.totalGrade}</div>
               ) : (
-                ""
+                <div className="col-span-3">N/A</div>
               )}
             </div>
-          ) : (
-            ""
           )}
         </div>
       </div>

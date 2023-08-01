@@ -18,7 +18,7 @@ export const GET = async (req: NextRequest, { params }: ParamsType) => {
     });
     return NextResponse.json(attendances);
   } catch (e) {
-    return NextResponse.json(e);
+    return NextResponse.json(e, {status:500});
   } finally {
     await prisma.$disconnect();
   }
@@ -47,7 +47,7 @@ export const POST = async (req: NextRequest, { params }: ParamsType) => {
     });
     return NextResponse.json(attendance);
   } catch (e) {
-    return NextResponse.json(e);
+    return NextResponse.json(e, {status:500});
   } finally {
     await prisma.$disconnect();
   }
