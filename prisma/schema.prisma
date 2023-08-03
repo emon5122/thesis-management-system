@@ -10,17 +10,18 @@ datasource db {
 }
 
 model User {
-  id               String       @id @default(uuid())
-  name             String?
-  email            String       @unique
-  role             UserRole     @default(STUDENT)
-  password         String
-  attendances      Attendance[] @relation("studentAttendances")
-  evaluations      Evaluation[] @relation("evaulatorTeacher")
-  noticesAsStudent Notice[]     @relation("noticeStudent")
-  noticesAsTeacher Notice[]     @relation("noticeTeacher")
-  thesisAsStudent  Thesis?      @relation("thesisAsStudent")
-  thesesAsTeacher  Thesis[]     @relation("ThesisToUser")
+  id                 String       @id @default(uuid())
+  name               String?
+  email              String       @unique
+  role               UserRole     @default(STUDENT)
+  password           String
+  attendances        Attendance[] @relation("studentAttendances")
+  evaluations        Evaluation[] @relation("evaulatorTeacher")
+  noticesAsStudent   Notice[]     @relation("noticeStudent")
+  noticesAsTeacher   Notice[]     @relation("noticeTeacher")
+  thesisAsStudent    Thesis?      @relation("thesisAsStudent")
+  thesesAsTeacher    Thesis[]     @relation("ThesisToUser")
+  thesesAsSupervisor Thesis[]     @relation("supervisorThesis")
 }
 
 model Thesis {
@@ -29,6 +30,7 @@ model Thesis {
   studentId    String       @unique
   supervisorId String
   createdAt    DateTime     @default(now())
+  supervisor   User         @relation("supervisorThesis", fields: [supervisorId], references: [id])
   evaluation   Evaluation[] @relation("evaulationThesis")
   Task         Task[]       @relation("thesisTask")
   student      User         @relation("thesisAsStudent", fields: [studentId], references: [id], onDelete: Cascade)

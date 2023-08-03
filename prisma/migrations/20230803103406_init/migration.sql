@@ -19,7 +19,6 @@ CREATE TABLE "Thesis" (
     "studentId" TEXT NOT NULL,
     "supervisorId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "evaluations" TEXT[],
 
     CONSTRAINT "Thesis_pkey" PRIMARY KEY ("id")
 );
@@ -61,6 +60,7 @@ CREATE TABLE "Evaluation" (
     "evaluatorID" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "thesisId" TEXT NOT NULL,
+    "comment" TEXT,
 
     CONSTRAINT "Evaluation_pkey" PRIMARY KEY ("id")
 );
@@ -89,10 +89,16 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Thesis_studentId_key" ON "Thesis"("studentId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Evaluation_thesisId_evaluatorID_key" ON "Evaluation"("thesisId", "evaluatorID");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_ThesisToUser_AB_unique" ON "_ThesisToUser"("A", "B");
 
 -- CreateIndex
 CREATE INDEX "_ThesisToUser_B_index" ON "_ThesisToUser"("B");
+
+-- AddForeignKey
+ALTER TABLE "Thesis" ADD CONSTRAINT "Thesis_supervisorId_fkey" FOREIGN KEY ("supervisorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Thesis" ADD CONSTRAINT "Thesis_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -104,10 +110,10 @@ ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_studentId_fkey" FOREIGN KEY 
 ALTER TABLE "Task" ADD CONSTRAINT "Task_thesisId_fkey" FOREIGN KEY ("thesisId") REFERENCES "Thesis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Evaluation" ADD CONSTRAINT "Evaluation_thesisId_fkey" FOREIGN KEY ("thesisId") REFERENCES "Thesis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Evaluation" ADD CONSTRAINT "Evaluation_evaluatorID_fkey" FOREIGN KEY ("evaluatorID") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Evaluation" ADD CONSTRAINT "Evaluation_evaluatorID_fkey" FOREIGN KEY ("evaluatorID") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Evaluation" ADD CONSTRAINT "Evaluation_thesisId_fkey" FOREIGN KEY ("thesisId") REFERENCES "Thesis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Notice" ADD CONSTRAINT "Notice_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
