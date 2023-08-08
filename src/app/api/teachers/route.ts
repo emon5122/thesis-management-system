@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
       select: { id: true, name: true,_count:true },
     });
 
-
+console.log(teachers.map(t=>console.log(t._count.thesesAsSupervisor)))
     return NextResponse.json(teachers, { status: 200 });
   } catch (e) {
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
