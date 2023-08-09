@@ -28,6 +28,7 @@ const Assign = () => {
     queries: [
       {
         queryKey: ["students"],
+        staleTime:600,
         queryFn: async () => {
           const res = await myAxios.get("assignable-students");
           return z
@@ -42,6 +43,7 @@ const Assign = () => {
       },
       {
         queryKey: ["teachers"],
+        staleTime:600,
         queryFn: async () => {
           const res = await myAxios.get("teachers");
           return z
@@ -49,6 +51,9 @@ const Assign = () => {
               z.object({
                 name: z.string(),
                 id: z.string().uuid(),
+                _count: z.object({
+                  thesesAsSupervisor: z.number(),
+                }),
               })
             )
             .parse(res.data);
@@ -64,6 +69,7 @@ const Assign = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["students"]);
+      queryClient.invalidateQueries(["teachers"]);
       toast("Success!");
     },
   });
@@ -105,15 +111,14 @@ const Assign = () => {
           onChange={(e: SelectChangeEvent) => {
             setSpId(e.target.value);
           }}
-        >
-          {teachers &&
-            teachers.map((teacher) => {
-              return (
-                <MenuItem key={teacher.id} value={teacher.id}>
-                  {teacher.name}
-                </MenuItem>
-              );
-            })}
+        >{teachers &&
+          teachers.map((teacher) => (
+              teacher._count?.thesesAsSupervisor < 4 ? (
+                  <MenuItem key={teacher.id} value={teacher.id}>
+                      {teacher.name}
+                  </MenuItem>
+              ) : null
+          ))}
         </Select>
         <InputLabel id="demo-multiple-chip-label" className="text-black">
           Student List

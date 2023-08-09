@@ -19,6 +19,7 @@ CREATE TABLE "Thesis" (
     "studentId" TEXT NOT NULL,
     "supervisorId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "endedAt" TIMESTAMP(3),
 
     CONSTRAINT "Thesis_pkey" PRIMARY KEY ("id")
 );
@@ -59,6 +60,7 @@ CREATE TABLE "Evaluation" (
     "m6" INTEGER NOT NULL,
     "evaluatorID" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "endedAt" TIMESTAMP(3),
     "thesisId" TEXT NOT NULL,
     "comment" TEXT,
 

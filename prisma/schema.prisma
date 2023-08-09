@@ -30,6 +30,7 @@ model Thesis {
   studentId    String       @unique
   supervisorId String
   createdAt    DateTime     @default(now())
+  endedAt      DateTime?  
   supervisor   User         @relation("supervisorThesis", fields: [supervisorId], references: [id])
   evaluation   Evaluation[] @relation("evaulationThesis")
   Task         Task[]       @relation("thesisTask")
@@ -68,6 +69,7 @@ model Evaluation {
   m6          Int
   evaluatorID String
   createdAt   DateTime @default(now())
+  endedAt      DateTime?
   thesisId    String
   comment     String?
   evaluator   User     @relation("evaulatorTeacher", fields: [evaluatorID], references: [id])

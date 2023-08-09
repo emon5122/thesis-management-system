@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
             },
           });
         } catch (error) {
-          console.error(error);
+          throw new Error()
         } finally {
           await prisma.$disconnect();
         }

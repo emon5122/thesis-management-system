@@ -83,7 +83,7 @@ const Assign = () => {
     const {
       target: { value },
     } = event;
-   
+
     setTeachers(typeof value === "string" ? value.split(",") : value);
   };
   return (
@@ -132,9 +132,14 @@ const Assign = () => {
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected: any) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value: any) => (
-                <Chip key={value} label={value} />
-              ))}
+              {selected.map((value: any) => {
+                const thisTeacher = teachersData?.findIndex(
+                  (teacher) => teacher.id === value
+                );
+                return (
+                  <Chip key={value} label={thisTeacher!==undefined && teachersData && teachersData[thisTeacher].name} />
+                );
+              })}
             </Box>
           )}
         >
@@ -146,7 +151,11 @@ const Assign = () => {
             ))}
         </Select>
         <div className="text-3xl">{errors.teachers?.message}</div>
-        <Button className="mt-2 hover:bg-slate-300" variant="outlined" type="submit">
+        <Button
+          className="mt-2 hover:bg-slate-300"
+          variant="outlined"
+          type="submit"
+        >
           Submit
         </Button>
       </form>

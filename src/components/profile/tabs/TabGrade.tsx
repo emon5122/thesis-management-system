@@ -35,8 +35,7 @@ const TabGrade = ({ session, id }: any) => {
     queryKey: ["evcount"],
     staleTime: 300000,
   });
-console.log(evcount?.evaluationCount)
-console.log(count?.teacherCount+1)
+
 
   return (
     <div className="h-full">

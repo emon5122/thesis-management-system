@@ -13,7 +13,10 @@ export const GET = async (req: any) => {
         id: true,
         name: true,
         studentId: true,
+        createdAt: true,
+        endedAt: true,
         teacher: { select: { name: true, id: true } },
+        evaluation:{select:{createdAt:true}},
       },
     });
     return NextResponse.json(theses);

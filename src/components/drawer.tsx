@@ -94,6 +94,7 @@ const PersistentDrawerLeft = ({ children }: any) => {
   } else if (role === "ADMIN") {
     paths = [
       { url: "/dashboard/students", name: "Student List" },
+      { url: "/dashboard/thesis", name: "Thesis List" },
       { url: "/dashboard/assign", name: "Assign Thesis" },
       { url: "/dashboard/assign-evaluator", name: "Assign Evaluator" },
     ];
